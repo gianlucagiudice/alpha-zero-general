@@ -4,6 +4,8 @@ import logging
 
 from tqdm import tqdm
 
+from colorama import Fore, Back, Style
+
 log = logging.getLogger(__name__)
 
 
@@ -59,7 +61,7 @@ class Arena:
             the_winner_is = 0
 
         if verbose:
-            print(f"Game over: Turn {turn}; Result: {the_winner_is}")
+            print(f"\n>>> Game over! Turn {turn}, the winner is {the_winner_is} <<<")
 
         return the_winner_is
 
@@ -105,5 +107,9 @@ class Arena:
         if show:
             self.game.show(board)
         if verbose:
-            print(f"Turn {turn} - Player {player}")
+            if turn == 0:
+                print(f'\n>>> Starting position <<<\n')
+            else:
+                color = Fore.RED if player == 1 else Fore.BLUE
+                print(f"\n>>> Turn {turn}; {color}Player {player}{Style.RESET_ALL} <<<\n")
             self.game.display(board)
