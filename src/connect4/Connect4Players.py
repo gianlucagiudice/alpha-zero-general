@@ -2,6 +2,7 @@ import numpy as np
 from src.connect4.Connect4Game import Connect4Game
 from src.Player import Player
 
+
 class RandomConnect4Player(Player):
     def __init__(self, game: Connect4Game, player: int):
         self.game = game
@@ -10,23 +11,21 @@ class RandomConnect4Player(Player):
     def play(self, board):
         valid_moves = self.game.getValidMoves(board, self.player)
         valid_actions = np.arange(valid_moves.size)[valid_moves]
-        print(valid_moves)
-        print(valid_actions)
         return np.random.choice(valid_actions)
 
 
 class HumanConnect4Player(Player):
-    def __init__(self, game: Connect4Game, player: int):
+    def __init__(self, game, player):
         self.game = game
         self.player = player
 
-    def play(self):
-        valid_moves = self.game.getValidMoves(self.game._base_board, self.player)
-        print('List of valid moves: ', [m for m in valid_moves])
+    def play(self, board: np.array) -> int:
+        valid_moves = self.game.getValidMoves(board, self.player)
+        print('List of valid moves: ', [i for i, valid in enumerate(valid_moves) if valid])
         while True:
             try:
                 move = int(input('Choose your move: '))
-                if move in valid_moves:
+                if valid_moves[move]:
                     break
                 else:
                     print('Invalid move.')
