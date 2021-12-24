@@ -1,4 +1,5 @@
 import logging
+import os.path
 
 import coloredlogs
 
@@ -7,6 +8,7 @@ from src.connect4.Connect4Game import Connect4Game
 from src.connect4.keras.NNet import NNetWrapper
 
 from src.utils import dotdict
+from tensorflow.keras.utils import plot_model
 
 
 log = logging.getLogger(__name__)
@@ -25,7 +27,7 @@ args = dotdict(dict(
 
     checkpoint='../temp/',
     load_model=False,
-    load_folder_file=('/dev/models/8x100x50','best.pth.tar'),
+    load_folder_file=('/dev/models/8x100x50', 'best.pth.tar'),
     numItersForTrainExamplesHistory=20,
 ))
 
@@ -37,12 +39,19 @@ def main():
     log.info('Loading %s...', NNetWrapper.__name__)
     nnet = NNetWrapper(game)
 
+    # Neural network info
+    log.info('Neural network info:')
+    log.info(nnet.nnet.model.summary())
+    plot_model(nnet.nnet.model, to_file=os.path.join('connect4/keras/model.png'))
+
+    # Load weigths
     if args.load_model:
         log.info('Loading checkpoint "%s/%s"...', args.load_folder_file[0], args.load_folder_file[1])
         nnet.load_checkpoint(args.load_folder_file[0], args.load_folder_file[1])
     else:
         log.warning('Not loading a checkpoint!')
 
+    # Create coach
     log.info('Loading the Coach...')
     c = Coach(game, nnet, args)
 
@@ -50,6 +59,7 @@ def main():
         log.info("Loading 'trainExamples' from file...")
         c.loadTrainExamples()
 
+    # Start training
     log.info('Starting the learning process 🎉')
     c.learn()
 
