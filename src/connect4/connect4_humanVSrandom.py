@@ -1,6 +1,6 @@
 from src.connect4.Connect4Game import Connect4Game
 from src.connect4.Connect4Players import RandomConnect4Player, HumanConnect4Player
-from Arena import Arena
+from src.Arena import Arena
 
 
 def main():
