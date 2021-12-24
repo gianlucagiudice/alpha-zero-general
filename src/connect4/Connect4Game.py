@@ -72,7 +72,4 @@ class Connect4Game(Game):
 
     @staticmethod
     def display(board):
-        print(" -----------------------")
-        print(' '.join(map(str, range(len(board[0])))))
         print(board)
-        print(" -----------------------")
