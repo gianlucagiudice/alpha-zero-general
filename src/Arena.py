@@ -1,10 +1,10 @@
-from src.Player import Player
+from typing import Callable
 
 import logging
 
 from tqdm import tqdm
 
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 log = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ class Arena:
     An Arena class where any 2 agents can be pit against each other.
     """
 
-    def __init__(self, player1: Player, player2: Player, game, display=None):
+    def __init__(self, player1: Callable, player2: Callable, game, display=None):
         """
         Input:
             player 1,2: two functions that takes board as input, return action
@@ -46,7 +46,7 @@ class Arena:
             # Play turn
             for player in [self.player1, self.player2]:
                 # Player make a choice
-                choice = player.play(board)
+                choice = player(board)
                 board, curr_player = self.game.getNextState(board, curr_player, choice)
                 # Show game
                 self.display_game(board, turn, -curr_player, verbose, show)
@@ -61,7 +61,8 @@ class Arena:
             the_winner_is = 0
 
         if verbose:
-            print(f"\n>>> Game over! Turn {turn}, the winner is {the_winner_is} <<<")
+            print(f"\n>>> Game over! Turn {turn}, the winner is {the_winner_is} <<< ")
+            input("(Press any key to continue...)")
 
         return the_winner_is
 
