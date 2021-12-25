@@ -1,6 +1,7 @@
 from src.NeuralNet import NeuralNet
 
 from src.connect4.keras.Connect4NNet import Connect4NNet
+from multiprocessing import cpu_count
 
 import numpy as np
 import os
@@ -29,7 +30,8 @@ class NNetWrapper(NeuralNet):
         target_vs = np.asarray(target_vs)
         # Input and output for training
         x , y = input_boards, [target_pis, target_vs]
-        self.nnet.model.fit(x=x, y=y, batch_size=args["batch_size"], epochs=args["epochs"])
+        self.nnet.model.fit(x=x, y=y, batch_size=args["batch_size"], epochs=args["epochs"],
+                            use_multiprocessing=True, workers=cpu_count())
 
     def predict(self, board):
         # Preprocess input
