@@ -3,6 +3,8 @@ from src.Game import Game
 from keras.layers import Input, Reshape, Activation, BatchNormalization, Conv2D, Flatten, Dense, Dropout
 from keras.models import Model
 from keras.optimizer_v2.adam import Adam
+import tensorflow as tf
+tf.get_logger().setLevel('WARNING')
 
 
 class Connect4NNet:
