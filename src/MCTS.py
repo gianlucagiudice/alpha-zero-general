@@ -35,8 +35,8 @@ class MCTS():
                    proportional to Nsa[(s,a)]**(1./temp)
         """
 
-        # TODO: Return probs without lookahead
-
+        # TODO: Return raw probabilities from neural networks
+        
         for i in range(self.args['numMCTSSims']):
             self.search(canonicalBoard)
 
