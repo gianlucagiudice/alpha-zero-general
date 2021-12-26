@@ -11,8 +11,18 @@ from src.connect4.keras.NNet import NNetWrapper
 
 from multiprocessing import cpu_count
 
-log = logging.getLogger(__name__)
-coloredlogs.install(level='INFO')  # Change this to DEBUG to see more info.
+
+def init_log(filename):
+    try:
+        os.remove(filename)
+    except OSError:
+        pass
+    logging.basicConfig(filename=filename, filemode='a')
+    coloredlogs.install(level='INFO')  # Change this to DEBUG to see more info.
+    return logging.getLogger(__name__)
+
+
+log = init_log('run_unfo.log')
 
 args = dict(
     numIters=1000,
@@ -42,7 +52,7 @@ def main():
     # Neural network info
     log.info('Neural network info:')
     log.info(nnet.nnet.model.summary())
-    plot_model(nnet.nnet.model, to_file=os.path.join('src/connect4/keras/model.png'))
+    #plot_model(nnet.nnet.model, to_file=os.path.join('./src', 'connect4', 'keras', 'model.png'))
 
     # Load weigths
     if args['load_model']:
