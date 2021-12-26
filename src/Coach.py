@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+import time
 
 from collections import deque
 from pickle import Pickler, Unpickler
@@ -10,7 +11,6 @@ from src.connect4.Connect4Players import MCTSConnect4Player
 
 from multiprocessing import Pool
 
-
 from tqdm import tqdm
 
 import numpy as np
@@ -19,6 +19,12 @@ from src.Arena import Arena
 from src.MCTS import MCTS
 
 log = logging.getLogger(__name__)
+
+
+def compute_elapsed_time(start, end):
+    hours, rem = divmod(end - start, 3600)
+    minutes, seconds = divmod(rem, 60)
+    return "{:0>2}:{:0>2}:{:0>2}".format(int(hours), int(minutes), round(seconds))
 
 
 class Coach:
@@ -84,16 +90,18 @@ class Coach:
         only if it wins >= updateThreshold fraction of games.
         """
 
+        starting_time = time.time()
+
         for i in range(1, self.args['numIters'] + 1):
             # bookkeeping
-            log.info(f'Starting Iter #{i} ...')
+            log.info(f'Starting Iter #{i} ... (Elapsed time: {compute_elapsed_time(starting_time, time.time())})')
             # examples of the iteration
             if not self.skipFirstSelfPlay or i > 1:
                 iterationTrainExamples = deque([], maxlen=self.args['maxlenOfQueue'])
 
                 with Pool(self.args['nThreads']) as pool:
-                    episods = [MCTS(self.game, self.nnet, dict(self.args)) for _ in range(self.args['numEps'])]
-                    train_examples = list(tqdm(pool.imap(self.executeEpisode, episods), total=self.args['numEps']))
+                    episodes = [MCTS(self.game, self.nnet, dict(self.args)) for _ in range(self.args['numEps'])]
+                    train_examples = list(tqdm(pool.imap(self.executeEpisode, episodes), total=self.args['numEps']))
 
                 # Add train example
                 for example in train_examples:
