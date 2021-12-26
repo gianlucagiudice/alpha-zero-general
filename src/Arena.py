@@ -1,3 +1,4 @@
+from multiprocessing import Pool, cpu_count
 from typing import Callable
 
 import logging
@@ -81,22 +82,25 @@ class Arena:
         oneWon = 0
         twoWon = 0
         draws = 0
-        for _ in tqdm(range(num), desc="Arena.playGames (1)"):
-            gameResult = self.playGame(verbose=verbose)
-            if gameResult == 1:
+
+        with Pool(cpu_count()) as pool:
+            games_results = list(tqdm(pool.imap(self.playGame, [False]*num), total=num, desc="Arena.playGames (1)"))
+        for result in games_results:
+            if result == 1:
                 oneWon += 1
-            elif gameResult == -1:
+            elif result == -1:
                 twoWon += 1
             else:
                 draws += 1
 
         self.player1, self.player2 = self.player2, self.player1
 
-        for _ in tqdm(range(num), desc="Arena.playGames (2)"):
-            gameResult = self.playGame(verbose=verbose)
-            if gameResult == -1:
+        with Pool(cpu_count()) as pool:
+            games_results = list(tqdm(pool.imap(self.playGame, [False]*num), total=num, desc="Arena.playGames (2)"))
+        for result in games_results:
+            if result == 1:
                 oneWon += 1
-            elif gameResult == 1:
+            elif result == -1:
                 twoWon += 1
             else:
                 draws += 1
