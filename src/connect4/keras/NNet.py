@@ -12,7 +12,7 @@ args = dict(
     epochs=15,
     batch_size=64,
     cuda=False,
-    num_channels=512,
+    num_channels=256,
 )
 
 
@@ -22,6 +22,8 @@ class NNetWrapper(NeuralNet):
         self.nnet = Connect4NNet(game, args)
         self.board_x, self.board_y = game.getBoardSize()
         self.action_size = game.getActionSize()
+        # History of training
+        self.training_history = []
 
     def train(self, examples):
         input_boards, target_pis, target_vs = list(zip(*examples))
@@ -30,8 +32,10 @@ class NNetWrapper(NeuralNet):
         target_vs = np.asarray(target_vs)
         # Input and output for training
         x, y = input_boards, [target_pis, target_vs]
-        self.nnet.model.fit(x=x, y=y, batch_size=args["batch_size"], epochs=args["epochs"],
-                            use_multiprocessing=True, workers=cpu_count())
+        # Traing
+        history = self.nnet.model.fit(x=x, y=y, batch_size=args["batch_size"], epochs=args["epochs"],
+                                      use_multiprocessing=True, workers=cpu_count())
+        self.training_history.append(history.history)
 
     def predict(self, board):
         # Preprocess input
