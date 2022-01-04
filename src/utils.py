@@ -1,18 +1,19 @@
-class AverageMeter(object):
-    """From https://github.com/pytorch/examples/blob/master/imagenet/main.py"""
+import os
+import logging
+import coloredlogs
+import time
 
-    def __init__(self):
-        self.val = 0
-        self.avg = 0
-        self.sum = 0
-        self.count = 0
+LOG_DIR_PATH = os.path.join('..', 'logs')
 
-    def __repr__(self):
-        return f'{self.avg:.2e}'
 
-    def update(self, val, n=1):
-        self.val = val
-        self.sum += val * n
-        self.count += n
-        self.avg = self.sum / self.count
+def init_logger():
+    # Check log dir
+    check_log_dir()
+    # Init dir
+    log_file = os.path.join(LOG_DIR_PATH, '{}.log'.format(time.strftime("%d_%m_%Y-%H_%M_%S")))
+    logging.basicConfig(filename=log_file, filemode='a', format='%(asctime)s : %(name)s : %(levelname)s >>> %(message)s')
+    coloredlogs.install(level='INFO')
 
+
+def check_log_dir():
+    os.makedirs(LOG_DIR_PATH, exist_ok=True)
