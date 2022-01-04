@@ -9,7 +9,7 @@ import os
 args = dict(
     lr=0.001,
     dropout=0.3,
-    epochs=10,
+    epochs=15,
     batch_size=64,
     cuda=False,
     num_channels=512,
