@@ -29,7 +29,7 @@ class NNetWrapper(NeuralNet):
         target_pis = np.asarray(target_pis)
         target_vs = np.asarray(target_vs)
         # Input and output for training
-        x , y = input_boards, [target_pis, target_vs]
+        x, y = input_boards, [target_pis, target_vs]
         self.nnet.model.fit(x=x, y=y, batch_size=args["batch_size"], epochs=args["epochs"],
                             use_multiprocessing=True, workers=cpu_count())
 
