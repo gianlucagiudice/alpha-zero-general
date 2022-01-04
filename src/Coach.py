@@ -38,8 +38,10 @@ class Coach:
         self.nnet = nnet
         self.pnet = self.nnet.__class__(self.game)  # the competitor network
         self.args = args
-        self.trainExamplesHistory = []  # history of examples from args.numItersForTrainExamplesHistory latest iterations
-        self.skipFirstSelfPlay = False  # can be overriden in loadTrainExamples()
+        self.trainExamplesHistory = []
+        self.skipFirstSelfPlay = False
+        # History of pitting
+        self.pitting_history = []
 
     @staticmethod
     def executeEpisode(mcts: MCTS):
@@ -140,6 +142,7 @@ class Coach:
 
             # Play multiple games
             pwins, nwins, draws = arena.playGames(self.args['arenaCompare'])
+            self.pitting_history.append((pwins, nwins, draws))
 
             # Print games info
             log.info('NEW/PREV WINS : %d / %d ; DRAWS : %d' % (nwins, pwins, draws))
