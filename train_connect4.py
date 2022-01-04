@@ -1,5 +1,6 @@
 import logging
 import os
+import pickle
 
 from keras.utils.vis_utils import plot_model
 
@@ -12,7 +13,7 @@ from multiprocessing import cpu_count
 
 
 args = dict(
-    numIters=1000,
+    numIters=100,
     numEps=100,              # Number of complete self-play games to simulate during a new iteration.
     tempThreshold=15,        #
     updateThreshold=0.6,     # During arena playoff, new neural net will be accepted if threshold or more of games are won.
@@ -21,17 +22,15 @@ args = dict(
     arenaCompare=10,         # Number of games to play during arena play to determine if new net will be accepted.
     cpuct=1,
 
-    checkpoint='temp/',
+    checkpoint='../temp/',
     load_model=False,
     load_folder_file=('/dev/models/8x100x50', 'best.pth.tar'),
     numItersForTrainExamplesHistory=20,
     nThreads=cpu_count()
 )
 
-log = logging.getLogger(__name__)
 
-
-def main():
+def main(log):
     log.info('Loading %s...', Connect4Game.__name__)
     game = Connect4Game()
 
@@ -62,7 +61,16 @@ def main():
     log.info('Starting the learning process 🎉')
     c.learn()
 
+    # Dump pitting history
+    with open(os.path.join(args['checkpoint'], 'pitting_history.pickle'), 'wb') as handle:
+        pickle.dump(c.pitting_history, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    # Dump training history
+    with open(os.path.join(args['checkpoint'], 'training_history.pickle'), 'wb') as handle:
+        pickle.dump(nnet.training_history, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
 
 if __name__ == "__main__":
     init_logger()
-    main()
+    log = logging.getLogger(__name__)
+    main(log)
+
