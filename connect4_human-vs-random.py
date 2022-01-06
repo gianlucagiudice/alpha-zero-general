@@ -9,7 +9,7 @@ def main():
     player2 = RandomConnect4Player(connect4game, -1)
 
     print("\t\t===== CONNECT 4 GAME=====")
-    arena = Arena(player1.play, player2.play, connect4game, display=True)
+    arena = Arena(player1.play, player2.play, connect4game)
 
     arena.playGame(show=True, verbose=True)
 
