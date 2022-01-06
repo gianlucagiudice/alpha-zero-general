@@ -31,13 +31,14 @@ class Connect4NNet:
         h_conv1 = Activation('relu')(BatchNormalization(axis=3)(Conv2D(num_channels, 3, padding='same')(x_image)))
         h_conv2 = Activation('relu')(BatchNormalization(axis=3)(Conv2D(num_channels, 3, padding='same')(h_conv1)))
         h_conv3 = Activation('relu')(BatchNormalization(axis=3)(Conv2D(num_channels, 3, padding='same')(h_conv2)))
+        h_conv4 = Activation('relu')(BatchNormalization(axis=3)(Conv2D(num_channels, 3, padding='same')(h_conv3)))
 
         # Flatten layers after convolutions
-        h_conv3_flat = Flatten()(h_conv3)
+        h_conv4_flat = Flatten()(h_conv4)
 
         # Dense layers
-        s_fc1 = Dropout(dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(512)(h_conv3_flat))))
-        s_fc2 = Dropout(dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(256)(s_fc1))))
+        s_fc1 = Dropout(dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(1024)(h_conv4_flat))))
+        s_fc2 = Dropout(dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(512)(s_fc1))))
 
         # Multitask learning
         self.pi = Dense(self.action_size, activation='softmax', name='pi')(s_fc2)

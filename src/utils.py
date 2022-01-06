@@ -3,7 +3,7 @@ import logging
 import coloredlogs
 import time
 
-LOG_DIR_PATH = os.path.join('..', 'logs')
+LOG_DIR_PATH = os.path.join('logs')
 
 
 def init_logger():

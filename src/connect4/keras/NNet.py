@@ -12,7 +12,7 @@ args = dict(
     epochs=15,
     batch_size=64,
     cuda=False,
-    num_channels=256,
+    num_channels=512,
 )
 
 

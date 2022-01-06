@@ -17,12 +17,12 @@ args = dict(
     numEps=100,              # Number of complete self-play games to simulate during a new iteration.
     tempThreshold=15,        #
     updateThreshold=0.6,     # During arena playoff, new neural net will be accepted if threshold or more of games are won.
-    maxlenOfQueue=100000,    # Number of game examples to train the neural networks.
+    maxlenOfQueue=200000,    # Number of game examples to train the neural networks.
     numMCTSSims=25,          # Number of games moves for MCTS to simulate.
     arenaCompare=10,         # Number of games to play during arena play to determine if new net will be accepted.
     cpuct=1,
 
-    checkpoint='../temp/',
+    checkpoint='temp/',
     load_model=False,
     load_folder_file=('/dev/models/8x100x50', 'best.pth.tar'),
     numItersForTrainExamplesHistory=20,
@@ -40,7 +40,7 @@ def main(log):
     # Neural network info
     log.info('Neural network info:')
     log.info(nnet.nnet.model.summary())
-    plot_model(nnet.nnet.model, to_file=os.path.join('connect4', 'keras', 'architecture.png'))
+    plot_model(nnet.nnet.model, to_file=os.path.join('src', 'connect4', 'keras', 'architecture.png'))
 
     # Load weigths
     if args['load_model']:
