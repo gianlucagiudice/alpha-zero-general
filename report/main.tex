@@ -1,4 +1,4 @@
-\documentclass{article}
+  \documentclass{article}
 
 
 \usepackage{arxiv}
@@ -28,6 +28,10 @@
 
 \usepackage{makecell}
 \renewcommand\theadfont{\bfseries}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
 
 
@@ -356,8 +360,6 @@ In the work of David Silver et al. "Playing Atari with Deep Reinforcement Learni
 
 In the work "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari}, they developed an agent on the challenging domain of classic Atari 2600 games. They demonstrate that the deep Q-network agent, receiving only the pixels (processed by a convolutional neural network, hence a deep learning approach) and the game score as inputs, was able to surpass the performance of all previous algorithms and achieve a level comparable to that of a professional human games tester across a set of 49 games, using the same algorithm, network architecture and hyperparameters. This work bridges the divide between high-dimensional sensory inputs and actions, resulting in the first artificial agent that is capable of learning to excel at a diverse array of challenging tasks.
 
-
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=14cm]{dqn-architecture.png}
@@ -408,14 +410,174 @@ policy $p$. Averaging over such rollouts can provide an effective position evalu
 \subsection{Versions  of AlphaGo}
 In the first version of AlphaGo \cite{Silver_2016}, by a combination of supervised learning from human expert games, reinforcement learning from games of self-play and Monte Carlo simulation with value and policy networks, AlphaGo achieved a 99.8\% winning rate against other Go programs, and defeated the human European Go champion by 5 games to 0. That was the first time that a computer program has defeated a human professional player in the full-sized game of Go.
 
-The next version of AlphaGo is AlphaGo Zero \cite{silver2017mastering}, an algorithm based solely on reinforcement learning, without human data, guidance or domain knowledge beyond game rules. Starting tabula rasa, AlphaGo Zero achieved superhuman performance in Go, winning 100–0 against the previously published, champion-defeating AlphaGo.
+The next version of AlphaGo is AlphaGo Zero \cite{silver2017mastering}, an algorithm based solely on reinforcement learning, without human data, guidance or domain knowledge beyond game rules. Starting tabula rasa, AlphaGo Zero achieved superhuman performance in Go, winning 100–0 against the previously published, champion-defeating, AlphaGo.
+
+\subsection{Neural network architecture  of AlphaGo Zero}
+In AlphaGo Zero a depp neural $f_\theta$ with parameters $\theta$ is used. This neural network takes as an input the raw board representation $s$ of the position and outputs both move probabilities and a value, $f_\theta = (p,v)$. 
+
+The output of the neural networks are:
+\begin{itemize}
+	\item Vector $p$: The vector of move probabilities $p$ represents the probability of selecting each move, $p_a = P(a | s)$
+	\item Scalar $v$: The value $v$ is a scalar evaluation, estimating the probability of the current player winning from position $s$
+\end{itemize}
+In the previous version of AlphaGo \cite{Silver_2016}, two different deep neural networks were used to predict both $p$ and $v$. On the other hand, in AlphaGo Zero, these two neural networks are combined into a single one with two different outputs, treating the task as a multi-task learning problem. Another new aspect of these neural network is the introduction of many residual blocks of convolutional layers.
+
+The final neural network takes as input features the board state $s$,  and consists in these layers:
+
+\begin{enumerate}
+	\item First convolutional block:
+	\begin{enumerate}
+		\item A convolution of 256 filters of kernel size 3 $\times$ 3 with stride 1
+		\item Batch normalization
+		\item A rectifier nonlinearity
+	\end{enumerate}
+	\item  39 residual blocks, each one applies the following modules sequentially to its input:
+	\begin{enumerate}
+		\item A convolution of 256 filters of kernel size 3 $\times$ 3 with stride 1
+		\item Batch normalization
+		\item A rectifier nonlinearity
+		\item A convolution of 256 filters of kernel size 3 $\times$ 3 with stride 1
+		\item Batch normalization
+		\item A skip connection that adds the input to the block
+		\item A rectifier nonlinearity
+		The output of the residual tower is passed into two separate "heads" for computing the policy and value
+	\end{enumerate}
+	\item Two different "heads" for both policy and value
+	\begin{itemize}
+		\item The policy head:
+		
+		\begin{enumerate}
+			\item A convolution of 2 filters of kernel size 1 $\times$ 1 with stride 1
+			\item Batch normalization
+			\item A rectifier nonlinearity
+			\item A fully connected linear layer that outputs a vector of size $19^2 + 1 = 362$ ($19*19$ posible actions $+1$ for the pass acton)
+		\end{enumerate}
+		
+		\item The value head:
+		
+		\begin{enumerate}
+			\item A convolution of 1 filter of kernel size 1 $\times$ 1 with stride 1
+			\item Batch normalization
+			\item A rectifier nonlinearity
+			\item A fully connected linear layer to a hidden layer of size 256
+			\item A rectifier nonlinearity
+			\item A fully connected linear layer to a scalar
+			\item A tanh nonlinearity outputting a scalar in the range $[-1, 1]$ ($1$ representing the current player winning the game, $-1$ for the specular case)
+		\end{enumerate}
+	\end{itemize}
+	
+\end{enumerate}
+
+
+
+\begin{figure}[H]
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[height=6cm,trim={393px 313px 6855px 6134px},clip]{alpha_go_zero_cheat_sheet.png}
+		\caption{The \textbf{convolutional layer.}}
+		\label{fig:arch_convolution}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[height=11cm,trim={2518px 305px 4672px 4775px},clip]{alpha_go_zero_cheat_sheet.png}
+		\caption{A \textbf{residual layer.}}
+		\label{fig:arch_residual}
+	\end{subfigure}
+	\newline
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[height=10cm,trim={380px 1665px 6840px 3798px},clip]{alpha_go_zero_cheat_sheet.png}
+		\caption{The \textbf{value head.}}
+		\label{fig:arch_value}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[height=8cm,trim={2567px 2995px 4688px 3197px},clip]{alpha_go_zero_cheat_sheet.png}
+	\caption{The \textbf{policy head.}}
+	\label{fig:arch_policy}
+	\end{subfigure}
+\end{figure}
+
+
+\begin{figure}[H]\ContinuedFloat
+	\begin{subfigure}{1\textwidth}
+		\centering
+		\includegraphics[height=16cm,angle=90,trim={1600px 243px 5916px 3678px},clip]{alpha_go_zero_cheat_sheet.png}
+		\caption{\textbf{Full neural network.}}
+		\label{fig:arch_full}
+	\end{subfigure}
+	\caption[Caption for LOF]{The architecture of AlphaGo Zero. Diagram from this article.\footnotemark}
+\end{figure}
+
+\footnotetext{\url{https://medium.com/applied-data-science/alphago-zero-explained-in-one-diagram-365f5abf67e0}}
 
 \subsection{Reinforcement learning in AlphaGo Zero}
+The neural network in AlphaGo Zero is trained from games of self­ play by a novel reinforcement learning algorithm. In each position $s$, an MCTS search is executed, guided by the neural network $f_\theta$. The MCTS search outputs probabilities $\pi$ of playing each move. These search probabilities usually select much stronger moves than the raw move probabilities $p$ of the neural network $f_\theta(s)$; MCTS may therefore be viewed as a powerful policy improvement operator. Self­play with search may be viewed as a powerful policy evaluation operator. During the self-play the MCTS-based policy is used to select each move, and the game winner $z$ is used as a sample of the value $v$ (the winning player).
+
+\subsubsection{Self-play}
+
+The main idea of this reinforcement learning algorithm is to use these search operators in a policy iteration procedure: the neural network’s parameters are updated to make the move probabilities and value $(p, v) = f_\theta(s)$ more closely match the improved search probabilities and self play winner $(\pi, z)$; these new parameters are used in the next iteration of self-play to make the search even stronger.
+
+The self-play pipeline is performed as following (see \autoref{fig:alpha-zero-self_play}): The program plays a game $s_1, \, ..., \, s_t$ against itself. In each position $s_t$, an MCTS $\alpha_\theta$ is executed (see \autoref{fig:alpha-zero-mcts}) using the latest neural network $f_\theta$. Moves are selected according to the search probabilities computed by the MCTS, $a_t \sim \pi_t$. The terminal position $s_T$ is scored according to the rules of the game to compute the game winner $z$.
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=12cm,trim={66px 430px 0px 0px},clip]{alpha_go_zero_training.png}
+		
+		\caption{
+			\textbf{Self-play} AlphaGo Zero.\cite{Silver_2016}}
+		\label{fig:alpha-zero-self_play}
+\end{figure}
+
+During the self-play procedure, each tuple $(s_t, \pi_t, z)$ is stored as a training example for the training phase. During the training, the neural network takes the raw board position $s_t$ as input, passes it through many convolutional layers with parameters $\theta$, and outputs both a vector $p_t$, representing a probability distribution over moves, and a scalar value $v_t$, representing the probability of the current player winning in position $s_t$ (see \autoref{fig:alpha-zero-mcts}). The neural network parameters $\theta$ are updated to maximize the similarity of the policy vector $p_t$ to the search probabilities $\pi_t$, and to minimize the error between the predicted winner $v_t$ and the game winner $z$ (see \autoref{eq:loss_function_alphazero}). The new parameters are used in the next iteration of self-play as shown in \autoref{fig:alpha-zero-self_play}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm,trim={0px 0px 0px 280px},clip]{alpha_go_zero_training.png}
+	
+	\caption{\textbf{Neural network training} in AlphaGo Zero.\cite{Silver_2016}}
+\end{figure}
 
 
+\subsubsection{MCTS}
+The MCTS uses the neural network $f_\theta$ to guide its simulations (see \autoref{fig:alpha-zero-mcts}). Each edge $(s, a)$ in the search tree stores a prior probability $P(s, a) = p_\theta(a | s)$, a visit count $N(s, a)$, and an action-value $Q(s, a)$. 
+
+Each simulation starts from the root state and iteratively selects moves $a_t  = \argmax_a{Q(s_t,a) + U(s_t,a)}$, until a leaf node $s'$ is encountered. This leaf position is expanded and evaluated only once by the network to generate both prior probabilities and evaluation, $(P(s', \cdot), \, V(s')) = f_\theta(s')$.
+
+The action-value function is defined as:
+\begin{equation}
+	Q(s_t, a) = \frac{1}{N(s,a)} \sum_{s'\, | \, s,\, a \rightarrow s'}{V(s')}
+\end{equation}
+where $s, a \rightarrow s'$ indicates that a simulation eventually reached $s'$ after taking move a from position $s$.
+
+The reason why the chosen action $a$ maximise the sum $Q(s_t,a) + U(s_t,a)$ and not only the action-value function $Q(s_t, a)$ is because $U(s_t,a)$ acts as an exploration factor. The exploration-exploitation tradeoff is taken into account by this factor $U(s_t,a)$, which is defined as:
+\begin{equation}
+	U(s, a) = c_{puct}P(s, a)\frac{\sum_b N(s,b)}{1+N(s,a)}
+\end{equation}
+where $c_{puct}$ is a constant determining the level of exploration; this search control strategy initially prefers actions with high prior probability and low visit count, but asympotically prefers actions with high action value.
+
+MCTS may be viewed as a self-play algorithm that, given neural network parameters $\theta$ and a root position $s$, computes a vector of search probabilities recommending moves to play, $\pi = \alpha_\theta(s)$.
+
+The key points of the algorithm are summarized in the \autoref{fig:alpha-zero-mcts}, where is possible to see how each simulation traverses the tree of the MCTS by selecting the edge with maximum action value $Q$, plus an upper confidence bound $U$ that depends on a stored prior probability $P$ and visit count $N$ for that edge (which is incremented once traversed).
+\begin{figure}[H]
+	\centerline{\includegraphics[width=15cm]{alpha-zero-mcts.png}}
+	\caption{\textbf{MCTS procedure} in AlphaGo Zero\cite{Silver_2016}:\\ \textbf{(a)} Each simulation traverses the tree by selecting the edge with maximum action value $Q$, plus an upper confidence bound $U$ that depends on a stored prior probability $P$ and visit count $N$ for that edge (which is incremented once traversed).\\ \textbf{(b)} The leaf node is expanded and the associated position $s$ is evaluated by the neural network $(P(s', \cdot), \, V(s')) = f_\theta(s')$; the vector of $P$ values are stored in the outgoing edges from $s$.\\ \textbf{(c)} Action-value $Q$ is updated to track the mean of all evaluations $V$ in the subtree below that action.\\ \textbf{(d)} Once the search is complete, search probabilities $\pi$ are returned.}
+	\label{fig:alpha-zero-mcts}
+\end{figure}
+
+\subsubsection{Loss function}
+The parameters $\theta$ are adjusted by gradient descent on a loss function $L$ that sums over the mean-squared error to (to have $v$ as close as possible to $z$) and cross-entropy losses (to have $p$ as close as possible to $\pi$), respectively:
+\begin{equation}\label{eq:loss_function_alphazero}
+	(p,v) = f_\theta(s),\, L = (z-v)^2 - \pi_t log(p) + c \norm{\theta}^2
+\end{equation}
+where $c$ is a parameter controlling the level of L2 weight regularization to prevent overfitting.
 
 \section{Hands on: Connect4 zero}
 Ho aggiunto parallelizazione come in DQN
+
+No residual blocks dato che la rete ho meno risorse
 
 \bibliographystyle{unsrt}  % TODO: Change style
 \bibliography{references}
