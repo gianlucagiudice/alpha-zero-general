@@ -1,0 +1,339 @@
+2022-01-04 23:38:03,668 : __main__ : INFO >>> Loading Connect4Game...
+2022-01-04 23:38:03,668 : __main__ : INFO >>> Loading NNetWrapper...
+2022-01-04 23:38:03,813 : __main__ : INFO >>> Neural network info:
+2022-01-04 23:38:03,815 : __main__ : INFO >>> None
+2022-01-04 23:38:04,363 : __main__ : WARNING >>> Not loading a checkpoint!
+2022-01-04 23:38:04,364 : __main__ : INFO >>> Loading the Coach...
+2022-01-04 23:38:04,509 : __main__ : INFO >>> Starting the learning process 🎉
+2022-01-04 23:38:04,509 : src.Coach : INFO >>> Starting Iter #1 ... (Elapsed time: 00:00:00)
+2022-01-04 23:46:35,724 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-04 23:48:32,296 : src.Coach : INFO >>> NEW/PREV WINS : 7 / 3 ; DRAWS : 0
+2022-01-04 23:48:32,296 : src.Coach : INFO >>> ACCEPTING NEW MODEL
+2022-01-04 23:48:32,383 : src.Coach : INFO >>> Starting Iter #2 ... (Elapsed time: 00:10:28)
+2022-01-04 23:58:36,445 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 00:00:35,588 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 00:00:35,588 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 00:00:35,618 : src.Coach : INFO >>> Starting Iter #3 ... (Elapsed time: 00:22:31)
+2022-01-05 00:12:35,649 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 00:14:40,483 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 00:14:40,483 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 00:14:40,510 : src.Coach : INFO >>> Starting Iter #4 ... (Elapsed time: 00:36:36)
+2022-01-05 00:27:41,005 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 00:29:21,325 : src.Coach : INFO >>> NEW/PREV WINS : 1 / 9 ; DRAWS : 0
+2022-01-05 00:29:21,325 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 00:29:21,353 : src.Coach : INFO >>> Starting Iter #5 ... (Elapsed time: 00:51:17)
+2022-01-05 00:43:48,695 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 00:45:51,927 : src.Coach : INFO >>> NEW/PREV WINS : 2 / 8 ; DRAWS : 0
+2022-01-05 00:45:51,927 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 00:45:51,956 : src.Coach : INFO >>> Starting Iter #6 ... (Elapsed time: 01:07:47)
+2022-01-05 01:02:04,503 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 01:04:19,396 : src.Coach : INFO >>> NEW/PREV WINS : 3 / 5 ; DRAWS : 2
+2022-01-05 01:04:19,396 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 01:04:19,425 : src.Coach : INFO >>> Starting Iter #7 ... (Elapsed time: 01:26:15)
+2022-01-05 01:21:54,393 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 01:23:54,847 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 01:23:54,847 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 01:23:54,876 : src.Coach : INFO >>> Starting Iter #8 ... (Elapsed time: 01:45:50)
+2022-01-05 01:42:59,377 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 01:44:51,934 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 01:44:51,934 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 01:44:51,961 : src.Coach : INFO >>> Starting Iter #9 ... (Elapsed time: 02:06:47)
+2022-01-05 02:04:52,753 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 02:06:35,765 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 02:06:35,765 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 02:06:35,794 : src.Coach : INFO >>> Starting Iter #10 ... (Elapsed time: 02:28:31)
+2022-01-05 02:28:08,866 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 02:30:21,542 : src.Coach : INFO >>> NEW/PREV WINS : 2 / 8 ; DRAWS : 0
+2022-01-05 02:30:21,542 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 02:30:21,571 : src.Coach : INFO >>> Starting Iter #11 ... (Elapsed time: 02:52:17)
+2022-01-05 02:53:34,578 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 02:55:24,738 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-05 02:55:24,738 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 02:55:24,765 : src.Coach : INFO >>> Starting Iter #12 ... (Elapsed time: 03:17:20)
+2022-01-05 03:19:22,228 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 03:20:52,433 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-05 03:20:52,433 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 03:20:52,464 : src.Coach : INFO >>> Starting Iter #13 ... (Elapsed time: 03:42:48)
+2022-01-05 03:46:17,172 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 03:48:11,575 : src.Coach : INFO >>> NEW/PREV WINS : 10 / 0 ; DRAWS : 0
+2022-01-05 03:48:11,575 : src.Coach : INFO >>> ACCEPTING NEW MODEL
+2022-01-05 03:48:11,662 : src.Coach : INFO >>> Starting Iter #14 ... (Elapsed time: 04:10:07)
+2022-01-05 04:16:04,937 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 04:17:55,682 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 04:17:55,682 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 04:17:55,712 : src.Coach : INFO >>> Starting Iter #15 ... (Elapsed time: 04:39:51)
+2022-01-05 04:48:10,634 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 04:50:01,542 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 04:50:01,542 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 04:50:01,570 : src.Coach : INFO >>> Starting Iter #16 ... (Elapsed time: 05:11:57)
+2022-01-05 05:22:28,787 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 05:24:03,034 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-05 05:24:03,034 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 05:24:03,062 : src.Coach : INFO >>> Starting Iter #17 ... (Elapsed time: 05:45:59)
+2022-01-05 05:58:07,974 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 06:00:01,221 : src.Coach : INFO >>> NEW/PREV WINS : 6 / 4 ; DRAWS : 0
+2022-01-05 06:00:01,221 : src.Coach : INFO >>> ACCEPTING NEW MODEL
+2022-01-05 06:00:01,306 : src.Coach : INFO >>> Starting Iter #18 ... (Elapsed time: 06:21:57)
+2022-01-05 06:36:01,623 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 06:37:53,150 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 06:37:53,151 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 06:37:53,179 : src.Coach : INFO >>> Starting Iter #19 ... (Elapsed time: 06:59:49)
+2022-01-05 07:16:23,746 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 07:18:23,130 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 7 ; DRAWS : 3
+2022-01-05 07:18:23,130 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 07:18:23,159 : src.Coach : INFO >>> Starting Iter #20 ... (Elapsed time: 07:40:19)
+2022-01-05 07:58:48,432 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 08:00:52,513 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 5 ; DRAWS : 5
+2022-01-05 08:00:52,513 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 08:00:52,541 : src.Coach : INFO >>> Starting Iter #21 ... (Elapsed time: 08:22:48)
+2022-01-05 08:08:56,285 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 08:41:31,617 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 08:43:38,151 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 08:43:38,151 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 08:43:38,179 : src.Coach : INFO >>> Starting Iter #22 ... (Elapsed time: 09:05:34)
+2022-01-05 08:51:44,135 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 09:25:28,156 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 09:27:26,867 : src.Coach : INFO >>> NEW/PREV WINS : 4 / 6 ; DRAWS : 0
+2022-01-05 09:27:26,867 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 09:27:26,898 : src.Coach : INFO >>> Starting Iter #23 ... (Elapsed time: 09:49:22)
+2022-01-05 09:35:37,180 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 10:09:45,599 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 10:11:29,888 : src.Coach : INFO >>> NEW/PREV WINS : 1 / 9 ; DRAWS : 0
+2022-01-05 10:11:29,888 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 10:11:29,916 : src.Coach : INFO >>> Starting Iter #24 ... (Elapsed time: 10:33:25)
+2022-01-05 10:19:43,136 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 10:54:38,937 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 10:56:27,869 : src.Coach : INFO >>> NEW/PREV WINS : 3 / 7 ; DRAWS : 0
+2022-01-05 10:56:27,869 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 10:56:27,897 : src.Coach : INFO >>> Starting Iter #25 ... (Elapsed time: 11:18:23)
+2022-01-05 11:04:31,452 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 11:40:09,778 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 11:41:50,348 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 11:41:50,348 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 11:41:50,376 : src.Coach : INFO >>> Starting Iter #26 ... (Elapsed time: 12:03:46)
+2022-01-05 11:50:23,519 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 12:26:15,512 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 12:28:13,678 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 12:28:13,678 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 12:28:13,708 : src.Coach : INFO >>> Starting Iter #27 ... (Elapsed time: 12:50:09)
+2022-01-05 12:36:17,975 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 13:12:42,354 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 13:14:38,866 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 13:14:38,866 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 13:14:38,896 : src.Coach : INFO >>> Starting Iter #28 ... (Elapsed time: 13:36:34)
+2022-01-05 13:22:56,265 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 13:59:57,324 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 14:01:41,173 : src.Coach : INFO >>> NEW/PREV WINS : 2 / 8 ; DRAWS : 0
+2022-01-05 14:01:41,173 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 14:01:41,201 : src.Coach : INFO >>> Starting Iter #29 ... (Elapsed time: 14:23:37)
+2022-01-05 14:09:47,525 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 14:47:35,659 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 14:49:20,850 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-05 14:49:20,850 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 14:49:20,877 : src.Coach : INFO >>> Starting Iter #30 ... (Elapsed time: 15:11:16)
+2022-01-05 14:58:07,760 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 15:38:18,427 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 15:40:15,513 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 15:40:15,515 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 15:40:15,554 : src.Coach : INFO >>> Starting Iter #31 ... (Elapsed time: 16:02:11)
+2022-01-05 15:48:18,700 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 16:31:36,249 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 16:33:31,704 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-05 16:33:31,705 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 16:33:31,769 : src.Coach : INFO >>> Starting Iter #32 ... (Elapsed time: 16:55:27)
+2022-01-05 16:43:07,366 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 17:29:56,832 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 17:31:50,247 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-05 17:31:50,247 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 17:31:50,285 : src.Coach : INFO >>> Starting Iter #33 ... (Elapsed time: 17:53:46)
+2022-01-05 17:40:57,750 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 18:26:15,364 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 18:28:24,620 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 18:28:24,620 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 18:28:24,665 : src.Coach : INFO >>> Starting Iter #34 ... (Elapsed time: 18:50:20)
+2022-01-05 18:37:26,306 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 19:18:58,071 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 19:20:40,836 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 19:20:40,836 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 19:20:40,864 : src.Coach : INFO >>> Starting Iter #35 ... (Elapsed time: 19:42:36)
+2022-01-05 19:28:56,835 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 20:10:33,554 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 20:12:31,423 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 20:12:31,423 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 20:12:31,450 : src.Coach : INFO >>> Starting Iter #36 ... (Elapsed time: 20:34:27)
+2022-01-05 20:20:49,983 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 21:02:31,003 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 21:04:12,442 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 21:04:12,442 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 21:04:12,470 : src.Coach : INFO >>> Starting Iter #37 ... (Elapsed time: 21:26:08)
+2022-01-05 21:12:13,815 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 21:53:52,689 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 21:55:53,151 : src.Coach : INFO >>> NEW/PREV WINS : 4 / 6 ; DRAWS : 0
+2022-01-05 21:55:53,151 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 21:55:53,180 : src.Coach : INFO >>> Starting Iter #38 ... (Elapsed time: 22:17:49)
+2022-01-05 22:04:10,787 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 22:46:01,099 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 22:47:58,298 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 22:47:58,298 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 22:47:58,325 : src.Coach : INFO >>> Starting Iter #39 ... (Elapsed time: 23:09:54)
+2022-01-05 22:56:03,267 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-05 23:37:35,756 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-05 23:39:16,974 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-05 23:39:16,974 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-05 23:39:17,013 : src.Coach : INFO >>> Starting Iter #40 ... (Elapsed time: 24:01:13)
+2022-01-05 23:47:03,995 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 00:28:21,992 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 00:30:11,217 : src.Coach : INFO >>> NEW/PREV WINS : 1 / 9 ; DRAWS : 0
+2022-01-06 00:30:11,218 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 00:30:11,256 : src.Coach : INFO >>> Starting Iter #41 ... (Elapsed time: 24:52:07)
+2022-01-06 00:38:15,867 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 01:19:52,487 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 01:21:48,679 : src.Coach : INFO >>> NEW/PREV WINS : 3 / 7 ; DRAWS : 0
+2022-01-06 01:21:48,679 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 01:21:48,707 : src.Coach : INFO >>> Starting Iter #42 ... (Elapsed time: 25:43:44)
+2022-01-06 01:30:05,121 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 02:11:53,472 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 02:13:53,223 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 02:13:53,223 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 02:13:53,250 : src.Coach : INFO >>> Starting Iter #43 ... (Elapsed time: 26:35:49)
+2022-01-06 02:22:18,098 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 03:04:25,485 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 03:06:11,824 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 03:06:11,824 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 03:06:11,853 : src.Coach : INFO >>> Starting Iter #44 ... (Elapsed time: 27:28:07)
+2022-01-06 03:14:09,379 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 03:55:55,272 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 03:57:37,979 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 03:57:37,979 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 03:57:38,006 : src.Coach : INFO >>> Starting Iter #45 ... (Elapsed time: 28:19:33)
+2022-01-06 04:05:53,806 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 04:47:41,269 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 04:49:25,443 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-06 04:49:25,443 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 04:49:25,485 : src.Coach : INFO >>> Starting Iter #46 ... (Elapsed time: 29:11:21)
+2022-01-06 04:57:54,242 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 05:39:40,299 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 05:41:39,293 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-06 05:41:39,293 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 05:41:39,321 : src.Coach : INFO >>> Starting Iter #47 ... (Elapsed time: 30:03:35)
+2022-01-06 05:49:59,425 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 06:31:51,738 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 06:33:34,738 : src.Coach : INFO >>> NEW/PREV WINS : 4 / 6 ; DRAWS : 0
+2022-01-06 06:33:34,738 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 06:33:34,768 : src.Coach : INFO >>> Starting Iter #48 ... (Elapsed time: 30:55:30)
+2022-01-06 06:41:38,188 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 07:23:18,741 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 07:25:15,065 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-06 07:25:15,066 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 07:25:15,092 : src.Coach : INFO >>> Starting Iter #49 ... (Elapsed time: 31:47:11)
+2022-01-06 07:33:30,587 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 08:15:43,204 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 08:17:26,195 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 08:17:26,195 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 08:17:26,222 : src.Coach : INFO >>> Starting Iter #50 ... (Elapsed time: 32:39:22)
+2022-01-06 08:25:41,903 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 09:07:25,651 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 09:09:09,778 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 09:09:09,778 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 09:09:09,808 : src.Coach : INFO >>> Starting Iter #51 ... (Elapsed time: 33:31:05)
+2022-01-06 09:17:33,153 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 09:59:21,410 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 10:01:29,778 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 7 ; DRAWS : 3
+2022-01-06 10:01:29,778 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 10:01:29,809 : src.Coach : INFO >>> Starting Iter #52 ... (Elapsed time: 34:23:25)
+2022-01-06 10:09:45,126 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 10:51:39,863 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 10:53:27,669 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-06 10:53:27,669 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 10:53:27,698 : src.Coach : INFO >>> Starting Iter #53 ... (Elapsed time: 35:15:23)
+2022-01-06 11:01:53,743 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 11:43:41,959 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 11:45:26,575 : src.Coach : INFO >>> NEW/PREV WINS : 3 / 7 ; DRAWS : 0
+2022-01-06 11:45:26,575 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 11:45:26,606 : src.Coach : INFO >>> Starting Iter #54 ... (Elapsed time: 36:07:22)
+2022-01-06 11:53:36,154 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 12:35:22,912 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 12:37:26,327 : src.Coach : INFO >>> NEW/PREV WINS : 2 / 8 ; DRAWS : 0
+2022-01-06 12:37:26,327 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 12:37:26,356 : src.Coach : INFO >>> Starting Iter #55 ... (Elapsed time: 36:59:22)
+2022-01-06 12:45:25,530 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 13:27:09,048 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 13:29:09,172 : src.Coach : INFO >>> NEW/PREV WINS : 2 / 6 ; DRAWS : 2
+2022-01-06 13:29:09,172 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 13:29:09,199 : src.Coach : INFO >>> Starting Iter #56 ... (Elapsed time: 37:51:05)
+2022-01-06 13:37:29,875 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 14:19:02,179 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 14:20:44,639 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 14:20:44,639 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 14:20:44,667 : src.Coach : INFO >>> Starting Iter #57 ... (Elapsed time: 38:42:40)
+2022-01-06 14:29:10,817 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 15:11:11,044 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 15:13:03,636 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 15:13:03,637 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 15:13:03,673 : src.Coach : INFO >>> Starting Iter #58 ... (Elapsed time: 39:34:59)
+2022-01-06 15:21:57,679 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 16:05:24,957 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 16:07:29,815 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 16:07:29,816 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 16:07:29,858 : src.Coach : INFO >>> Starting Iter #59 ... (Elapsed time: 40:29:25)
+2022-01-06 16:16:26,545 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 17:00:52,531 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 17:03:19,018 : src.Coach : INFO >>> NEW/PREV WINS : 2 / 5 ; DRAWS : 3
+2022-01-06 17:03:19,018 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 17:03:19,055 : src.Coach : INFO >>> Starting Iter #60 ... (Elapsed time: 41:25:15)
+2022-01-06 17:12:17,923 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 17:57:52,530 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 18:00:01,765 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-06 18:00:01,766 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 18:00:01,803 : src.Coach : INFO >>> Starting Iter #61 ... (Elapsed time: 42:21:57)
+2022-01-06 18:08:55,839 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 18:53:20,097 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 18:55:20,839 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 18:55:20,840 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 18:55:20,878 : src.Coach : INFO >>> Starting Iter #62 ... (Elapsed time: 43:17:16)
+2022-01-06 19:04:40,822 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 19:51:26,533 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 19:53:13,185 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 19:53:13,186 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 19:53:13,222 : src.Coach : INFO >>> Starting Iter #63 ... (Elapsed time: 44:15:09)
+2022-01-06 20:01:27,031 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 20:53:46,035 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 20:55:50,604 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-06 20:55:50,605 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 20:55:50,643 : src.Coach : INFO >>> Starting Iter #64 ... (Elapsed time: 45:17:46)
+2022-01-06 21:05:14,041 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 21:51:52,478 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 21:53:57,878 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 21:53:57,880 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 21:53:57,924 : src.Coach : INFO >>> Starting Iter #65 ... (Elapsed time: 46:15:53)
+2022-01-06 22:03:12,193 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 22:51:48,972 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 22:53:42,987 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-06 22:53:42,987 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 22:53:43,027 : src.Coach : INFO >>> Starting Iter #66 ... (Elapsed time: 47:15:39)
+2022-01-06 23:02:03,084 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-06 23:48:30,365 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-06 23:50:31,169 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-06 23:50:31,170 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-06 23:50:31,208 : src.Coach : INFO >>> Starting Iter #67 ... (Elapsed time: 48:12:27)
+2022-01-06 23:59:59,324 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-07 00:47:12,780 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-07 00:49:39,455 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-07 00:49:39,455 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-07 00:49:39,499 : src.Coach : INFO >>> Starting Iter #68 ... (Elapsed time: 49:11:35)
+2022-01-07 01:00:57,054 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-07 01:47:17,411 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-07 01:49:24,556 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-07 01:49:24,556 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-07 01:49:24,584 : src.Coach : INFO >>> Starting Iter #69 ... (Elapsed time: 50:11:20)
+2022-01-07 01:58:00,516 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-07 02:41:36,736 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-07 02:43:32,338 : src.Coach : INFO >>> NEW/PREV WINS : 0 / 10 ; DRAWS : 0
+2022-01-07 02:43:32,338 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-07 02:43:32,368 : src.Coach : INFO >>> Starting Iter #70 ... (Elapsed time: 51:05:28)
+2022-01-07 02:52:00,468 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
+2022-01-07 03:36:13,680 : src.Coach : INFO >>> PITTING AGAINST PREVIOUS VERSION
+2022-01-07 03:38:05,823 : src.Coach : INFO >>> NEW/PREV WINS : 5 / 5 ; DRAWS : 0
+2022-01-07 03:38:05,824 : src.Coach : INFO >>> REJECTING NEW MODEL
+2022-01-07 03:38:05,852 : src.Coach : INFO >>> Starting Iter #71 ... (Elapsed time: 52:00:01)
+2022-01-07 03:46:16,121 : src.Coach : WARNING >>> Removing the oldest entry in trainExamples. len(trainExamplesHistory) = 21
