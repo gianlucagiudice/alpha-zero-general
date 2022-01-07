@@ -15,8 +15,8 @@ from multiprocessing import cpu_count
 args = dict(
     numIters=100,
     numEps=100,              # Number of complete self-play games to simulate during a new iteration.
-    tempThreshold=15,        #
-    updateThreshold=0.6,     # During arena playoff, new neural net will be accepted if threshold or more of games are won.
+    tempThreshold=15,        # Temperature parameter
+    updateThreshold=0.6,     # New neural net will be accepted if threshold or more of games are won.
     maxlenOfQueue=200000,    # Number of game examples to train the neural networks.
     numMCTSSims=25,          # Number of games moves for MCTS to simulate.
     arenaCompare=10,         # Number of games to play during arena play to determine if new net will be accepted.
@@ -60,13 +60,6 @@ def main(log):
     # Start training
     log.info('Starting the learning process 🎉')
     c.learn()
-
-    # Dump pitting history
-    with open(os.path.join(args['checkpoint'], 'pitting_history.pickle'), 'wb') as handle:
-        pickle.dump(c.pitting_history, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    # Dump training history
-    with open(os.path.join(args['checkpoint'], 'training_history.pickle'), 'wb') as handle:
-        pickle.dump(nnet.training_history, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 if __name__ == "__main__":

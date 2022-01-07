@@ -1,5 +1,6 @@
 import logging
 import os
+import pickle
 import sys
 import time
 
@@ -40,8 +41,6 @@ class Coach:
         self.args = args
         self.trainExamplesHistory = []
         self.skipFirstSelfPlay = False
-        # History of pitting
-        self.pitting_history = []
 
     @staticmethod
     def executeEpisode(mcts: MCTS):
@@ -109,7 +108,7 @@ class Coach:
                 for example in train_examples:
                     iterationTrainExamples += example
 
-                # save the iteration examples to the history 
+                # save the iteration examples to the history
                 self.trainExamplesHistory.append(iterationTrainExamples)
 
             if len(self.trainExamplesHistory) > self.args['numItersForTrainExamplesHistory']:
@@ -142,7 +141,6 @@ class Coach:
 
             # Play multiple games
             pwins, nwins, draws = arena.playGames(self.args['arenaCompare'])
-            self.pitting_history.append((pwins, nwins, draws))
 
             # Print games info
             log.info('NEW/PREV WINS : %d / %d ; DRAWS : %d' % (nwins, pwins, draws))
@@ -153,6 +151,21 @@ class Coach:
                 log.info('ACCEPTING NEW MODEL')
                 self.nnet.save_checkpoint(folder=self.args['checkpoint'], filename=self.getCheckpointFile(i))
                 self.nnet.save_checkpoint(folder=self.args['checkpoint'], filename='best.h5')
+
+            # Dump training history
+            training_history = self.nnet.last_training_history.history
+            if training_history != None:
+                self.save_history(training_history, i, 'training-history', self.args['checkpoint'])
+
+            # Dump pitting history
+            pitting_history = (pwins, nwins, draws)
+            self.save_history(pitting_history, i, 'pitting-history', self.args['checkpoint'])
+
+    @staticmethod
+    def save_history(history, epoch, filename, checkpoint_dir):
+        output_filename = f'{filename}_{epoch}.pickle'
+        with open(os.path.join(checkpoint_dir, output_filename), 'wb') as handle:
+            pickle.dump(history, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     @staticmethod
     def getCheckpointFile(iteration):

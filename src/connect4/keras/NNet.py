@@ -23,7 +23,7 @@ class NNetWrapper(NeuralNet):
         self.board_x, self.board_y = game.getBoardSize()
         self.action_size = game.getActionSize()
         # History of training
-        self.training_history = []
+        self.last_training_history = None
 
     def train(self, examples):
         input_boards, target_pis, target_vs = list(zip(*examples))
@@ -33,9 +33,10 @@ class NNetWrapper(NeuralNet):
         # Input and output for training
         x, y = input_boards, [target_pis, target_vs]
         # Traing
-        history = self.nnet.model.fit(x=x, y=y, batch_size=args["batch_size"], epochs=args["epochs"],
-                                      use_multiprocessing=True, workers=cpu_count())
-        self.training_history.append(history.history)
+        self.last_training_history = self.nnet.model.fit(
+            x=x, y=y, batch_size=args["batch_size"], epochs=args["epochs"],
+            use_multiprocessing=True, workers=cpu_count()
+        )
 
     def predict(self, board):
         # Preprocess input
