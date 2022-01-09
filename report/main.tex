@@ -283,7 +283,7 @@ There are a variety of algorithms to do so, depending on what to learn and how t
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=13cm]{rl-taxonomy.png}
-	\caption{A non-exhaustive taxonomy of RL algorithms. \cite{SpinningUp2018}.}
+	\caption{A non-exhaustive taxonomy of RL algorithms. \cite{SpinningUp2018}}
 	\label{fig:rl-taxonomy}
 \end{figure}
 
@@ -468,8 +468,6 @@ The final neural network takes as input features the board state $s$,  and consi
 	
 \end{enumerate}
 
-
-
 \begin{figure}[H]
 	\begin{subfigure}{.5\textwidth}
 		\centering
@@ -573,6 +571,42 @@ The parameters $\theta$ are adjusted by gradient descent on a loss function $L$ 
 	(p,v) = f_\theta(s),\, L = (z-v)^2 - \pi_t log(p) + c \norm{\theta}^2
 \end{equation}
 where $c$ is a parameter controlling the level of L2 weight regularization to prevent overfitting.
+
+\subsection{Superhuman performance of AlphaGo Zero}
+As discussed in previous sectioon, AlphaGo Zero has been trained without human knowledge, this eventually leads to superhuman performance in the game of Go, even beating 100-0 the previous version of AlphaGo. This previous version was trained using supervised learning on the master Go player moves. On the other hand, AlphaGo Zero started from completely random behaviour and continued without human data nor intervention.
+
+In order to understend the performance of AlphaGo Zero, is interesting to analyze its empirical training results of each MCTS player $\alpha_{\theta_i}$ from each iteration $i$ of reinforcement learning in AlphaGo Zero, in comparison to a similar player trained by supervised learning from human data, using the KGS dataset\footnote{KGS dataset (available from \url{https://u-go.net/gamerecords/}).}. The Elo rating is a way to define the strength of the player. The results are shown in  \autoref{fig:training-elo}. As we can see, RL-approach is able to reach higher Elo rating and even in less amount of time.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=7cm,trim={0px 0px 1425px 45px},clip]{alpha-go-zero_empirical_results.png}
+	\caption{Elo rating comparison. \cite{Silver_2016}}
+	\label{fig:training-elo}
+\end{figure}
+
+Another interesting result is the difference in prediction accuracy on human professional moves between the neural netwrok $f_{\theta_i}$ at each iteration of self-play $i$, and the neural network trained by supervised learning. The accuracy measures the percentage of positions in which the neural network assigns the highest probability of action to take equal to that taken by the professional human, shown in \autoref{fig:training-acc}.
+
+In addition to the accuracy in prediction human moves, it's possible to consider the MSE in predicting the outcome of games. The MSE is between the actual outcome $z \in {-1, 1}$ and the neural network value $v$, scaled to the range of $0-1$, shown in \autopageref{fig:training-mse}.
+
+The astonishing fact is that , even if AlphaGo zero performs worse in predicting master Go player moves, it is better in prediction the actual outcome of a game (lower MSE). This is due to nature of reinforcement learning. Since in the RL approach we are not in charge of giving any kind of human expertise to the algorithm, there is no human knowledge celing to the performances.
+
+\begin{figure}[H]
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[height=7cm,trim={717px 0px 710px 45px},clip]{alpha-go-zero_empirical_results.png}
+		\caption{Prediction accuracy on human professional moves.}
+		\label{fig:training-acc}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[height=7cm,trim={1408px 0px 0px 45px},clip]{alpha-go-zero_empirical_results.png}
+		\caption{MSE of human professional game outcomes.}
+		\label{fig:training-mse}
+	\end{subfigure}
+	\caption{AlphaGo Zero performance comparsion. \cite{Silver_2016}}
+\end{figure}
+
 
 \section{Hands on: Connect4 zero}
 Ho aggiunto parallelizazione come in DQN
