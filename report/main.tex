@@ -1,8 +1,7 @@
-  \documentclass{article}
-
+\documentclass{article}
 
 \usepackage{arxiv}
-
+\usepackage{newtxtext,newtxmath}
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage{hyperref}       % hyperlinks
@@ -33,11 +32,18 @@
 \usepackage{subcaption}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
+\usepackage[english]{babel}
 
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=ynt
+]{biblatex}
+\addbibresource{references.bib}
 
 \graphicspath{ {./images/} }
 
-\title{AML in depth study: Reinforcement learning}
+\title{AML in depth study: Reinforcement Learning}
 
 
 \author{
@@ -49,16 +55,16 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-The aim of reinforcement learning is to build an agent, or decision maker, that learn to achive a goal by interacting with the enviroment. This type of learning is performed through a sequence of rewards and punishment which depends on the decisions made by the agent. In reinforcement learning the agent aims to maximise the cumulative reward. In this work I'll give an introduction to reinforcement learning, starting from the fundamental aspects until the latest deep reinforcement learning techniques. As an example of deep reinfroceemnt learning I'll present and explain AlphaGo zero \cite{silver2017mastering}, one of the most famous application of reinforcement learning, where David Silver et. al managed to build an agent without human knowledge able to achive superhuman performance in the game of Go. At the end of this work, based ont AlphaGo zero, I'll develop an algorithm to master the game of connect4 without human knowledge.
+The aim of reinforcement learning is to build an agent, or decision maker, that learn to achive a goal by interacting with the enviroment. This type of learning is performed through a sequence of rewards and punishments which depend on the decisions made by the agent. In reinforcement learning the agent aims to maximise the cumulative reward. In this work I'll give an introduction to reinforcement learning, starting from the fundamental aspects, until the latest deep reinforcement learning techniques. As an example of deep reinfroceemnt learning I'll present and explain AlphaGo zero \cite{silver2017mastering}, one of the most famous application of reinforcement learning, where David Silver et. al managed to build an agent without human knowledge, it was able to achive superhuman performance in the game of Go. At the end of this work I'll develop an algorithm, based on AlphaGo zero, to master the game of Connect4 without human knowledge.
 \end{abstract}
 
 \section{Introduction}
 
-Reinforcement learning is a computational approach to understanding and automating goal-directed learning and decision making. In this framework, learning is inteded as mapping situations to actions so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them thorugh interactions with the environment. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. Trial-error and delayed reward  are the two most important distinguishing features of reinforcement learning \cite{10.5555/3312046}.
+Reinforcement learning is a computational approach to understanding and automating goal-directed learning and decision making. In this framework, learning is inteded as mapping situations to actions so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward, by trying them thorugh interactions with the environment. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. Trial-error and delayed reward  are the two most important distinguishing features of reinforcement learning \cite{10.5555/3312046}.
 
-Markov decision processes are used in the reinforcement learning framework to formally describe the environment. A learning agent must be able to sense the state of its environment and must be able to take actions that affect the state in order to achive a goal. Markov decision processes include a sense of sensation, action and goal, the essential features of the problem which represents a sense of cause and effect. Any method that is well suited to solving such problems is considered to be a reinforcement learning method.
+Markov decision processes are used in the reinforcement learning framework to formally describe the environment. A learning agent must be able to sense the state of its environment and to take actions that affect the state in order to achive a goal. Markov decision processes are usefull because  they include the  fundamental features of a problem (sensation, action and goal) in order to capture cause and effect. Any method that is well suited to solving such problems is considered to be a reinforcement learning method.
 
-In many complex domains, reinforcement learning is the only feasible way to train a program to perform at high levels. For example, in game playing, it is very hard for a human to provide accurate and consistent evaluations of large numbers of positions, which would be needed to train an evaluation function directly from examples. Instead, the program can be told when it has won or lost, and it can use this information to learn an evaluation function that gives reasonably accurate estimates of the probability of winning from any given position. Similarly, it is extremely difficult to program an agent to fly a helicopter; yet given appropriate negative rewards for crashing, wobbling, or deviating from a set course, an agent can learn to fly by itself \cite{russell2016artificial}.
+In many complex domains, reinforcement learning is the only feasible way to train a program in order to solve a problem. For example, in game playing, it is very hard for a human to provide accurate and consistent evaluations of board positions, which would be needed to train an evaluation function. Instead, the program can be told when it has won or lost, and it can use this information to learn an evaluation function that gives reasonably accurate estimates of the probability of winning from any given position. Similarly, it is extremely difficult to program an agent to fly a helicopter. On the other hand, given appropriate negative rewards, an agent can learn to fly by itself.\cite{russell2016artificial}
 
 
 \section{Key Concepts in Reinforcement Learning}
@@ -72,7 +78,7 @@ The main characters of RL are the agent and the environment. The environment is 
 	\label{fig:rl-loop}
 \end{figure}
 
-To talk more specifically what RL is about, it's important to go through these key concepts \cite{SpinningUp2018}: 
+To better explain what RL is about, it is important to go through these key concepts: \cite{SpinningUp2018}:
 
 \begin{itemize}
 	\item States and observations
@@ -85,9 +91,9 @@ To talk more specifically what RL is about, it's important to go through these k
 
 
 \subsection{States and observations}
-A \textbf{state} $s$ is a complete description of the state of the world. There is no information about the world which is hidden from the state. An \textbf{observation} $o$ is a partial description of a state, which may omit information. When the agent is able to observe the complete state of the environment, it is fully observed. When the agent can only see a partial observation, the environment is partially observed.
+A \textbf{state} $s$ is a complete description of the state of the world. There is no information about the world which is hidden from the state. An \textbf{observation} $o$ is a partial description of a state, which may omit information on the world. When the agent is able to observe the complete state of the environment, we say that the environment is fully observed, otherwise, it is partially observed.
 
-Markov decision processes (Markov Reward Processes plus actions), are a classical formalization of sequential decision making, where actions influence not just immediate rewards, but also subsequent situations, or states, and through those future rewards. To this reason MDPs are a mathematical way to describe the reinforcement learning problems. 
+Markov decision processes (Markov Reward Processes plus actions), are a classical formalization of sequential decision making, where actions influence not only immediate rewards, but also future states, and through those future rewards. To this reason MDPs are a mathematical way to describe the reinforcement learning problems. 
 
 \begin{definition}
 	A \textbf{MDP} is a tuple $(S,A, P, R, \gamma)$, where:
@@ -107,7 +113,7 @@ Markov decision processes (Markov Reward Processes plus actions), are a classica
 Different environments allow different kinds of actions. The set of all valid actions in a given environment is called the \textbf{action space}. Some environments, like Atari and Go, have \textbf{discrete action spaces}, where only a finite number of moves are available to the agent. Other environments, like where the agent controls a robot in a physical world, have continuous action spaces. In continuous spaces, actions are real-valued vectors.
 
 \subsection{Policies}
-A \textbf{policy} defines the learning agent’s way of behaving at a given time, it's a mapping from perceived states of the environment (i.e. observations) to actions to be taken when in those states. A policy fully defines the behaviour of an agent:
+A \textbf{policy} defines the learning agent’s way of behaving at a given time, it is a mapping from perceived states of the environment (i.e. observations) to actions to be taken when in those states. A policy fully defines the behaviour of an agent:
 
 \begin{definition}
 	 A \textbf{policy} $\pi$ is a distribution over actions given states
@@ -127,7 +133,7 @@ The reward function $R$ depends on the current state of the world and action jus
 
 $$r_t = R(s_t, a_t)$$
 
-The agent aim to maximize the cumulative reward over a trajectory. The number of time steps in the trajectory is the \textbf{horizon}, denoted by $H$, and can be infinite. The sum of all rewards obtained by the agent is discounted by how far off in the future they’re obtained. The discount factor is $\gamma \in [0,1]$.
+The agent aim to maximize the cumulative reward over a trajectory. The number of time-steps in the trajectory is the \textbf{horizon}, denoted by $H$, and can be infinite. The sum of all rewards obtained by the agent is discounted by how far off in the future they are obtained. The discount factor is $\gamma \in [0,1]$.
 
 \begin{equation}
 R(\tau) = \sum_{t=0}^{H-1} \gamma^t r_t
@@ -158,10 +164,9 @@ with $\pi^*$ being the optimal policy.
 
 
 \subsection{Value functions}
-It's very important to point out the expected return by starting in a specific state or state-action pair. This is crucial since they are used in almost every RL algorithm.
+It is very important to point out the expected return by starting in a specific state or state-action pair. This is crucial since they are used in almost every RL algorithm.
 
-There are two main functions \cite{silver2015}:
-
+There are two main functions: \cite{silver2015}
 
 \begin{enumerate}
 	\item The \textbf{State-Value Function} of a policy.
@@ -186,21 +191,21 @@ There are two main functions \cite{silver2015}:
 	
 \end{definition}
 
-Starting form these definitions it's possible to introduce two other key functions:
+Starting form these definitions it is possible to introduce two other key functions:
 
 \begin{enumerate}
 	\item The \textbf{Optimal State-Value Function}.
 	\item The \textbf{Optimal Action-Value Function}.
 \end{enumerate}
 
-The state value function and action value function are connected by the following relationship:
+The state value function and action-value function are connected by the following relationship:
 
 \begin{equation}
 V^\pi(s) = \E_{a \sim \tau}[Q^\pi (s,a)]
 \end{equation}
 
 \subsection{Optimal value function and optimal policy }
-Value functions define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi'$ if its expected return is greater than or equal to that of $\pi'$ for all states. In other words, $\pi \geq \pi'$ if and only if $v_\pi(s) \geq v_{\pi'}(s)$ for all $s \in S$. There is always at least one policy that is better than or equal to all other policies. This is an optimal policy and it's denoted by $\pi*$.
+Value functions define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi'$ if its expected return is greater than or equal to that of $\pi'$ for all states. In other words, $\pi \geq \pi'$ if and only if $v_\pi(s) \geq v_{\pi'}(s)$ for all $s \in S$. There is always at least one policy that is better than or equal to all other policies. This is an optimal policy and it is denoted by $\pi*$.
 
 \begin{definition}
 	The \textbf{Optimal State-Value Function}, $V^*(s)$ is the expected return by starting in state $s$ and always acting according to the \textit{optimal} policy in the environment:
@@ -237,15 +242,14 @@ Therfore an optimal policy can be found by maximising over $Q^*(s,a)$:
 	\label{eq:opt-policy}
 \end{equation}
 
-As seen for the state value function and action value function, the following equation holds:
+As seen for the state value function and action-value function, the following equation holds:
 
 \begin{equation}
 V^*(s) = \max_a Q^* (s,a)
 \end{equation}
 
 \subsection{Bellman equations for MRPs}
-The state-value function as well as the action-value function can be decomposed into the immediate reward plus the discounted value of the successor state, this is referred as bellman equation.
-
+The state-value function as well as the action-value function can be decomposed into the immediate reward plus the discounted value of the successor state, this is referred as Bellman equation. The Belmman equations for the state-value function and the action-value functions are:
 
 
 	\begin{equation}
@@ -268,10 +272,10 @@ The Bellman equations for the optimal value functions are:
 	Q^{*}(s,a) = \E[\, {r(s,a) + \gamma \max_a {Q^{*}(S_{t+1}, A_{t+1})} \,|\, S_t = s, A_t = a} \,]
 \end{equation}
 
-The difference between the Bellman equations for the value functions reltive to a policy and the optimal value functions, is the absence or presence of the $\max$ over actions. Its inclusion reflects the fact that whenever the agent gets to choose its action, in order to act optimally, it has to pick whichever action leads to the highest value.
+The difference between the Bellman equations for the value functions relative to a policy and the optimal value functions, is the absence or presence of the $\max$ over actions. Its inclusion reflects the fact that whenever the agent gets to choose its action, in order to act optimally, it has to pick whichever action leads to the highest value.
 
 \section{RL algorithms}
-As seen before, from \autoref{eq:loss} and \autoref{eq:max_loss} the final objective of RL is find the best policy,
+As seen before, from \autoref{eq:loss} and \autoref{eq:max_loss} the final objective of RL is to find the best policy, i.e.:
 
 \begin{equation}
 	\pi^* = \argmax_\pi \E_{\tau \sim \pi}{[R(\tau)]}
@@ -292,11 +296,11 @@ There are a variety of algorithms to do so, depending on what to learn and how t
 
 The first branching point in the \autoref{fig:rl-taxonomy} is whether the agent has access to a model  of the environment or needs to learn it.
 
-Models are used for planning, meaning any way of deciding on a course of action by considering possible future situations before they are actually experienced. Methods for solving reinforcement learning problems that use models and planning are called model-based methods, as opposed to simpler model-free methods that are explicitly trial-and-error learners (viewed as almost the opposite of planning).
+Models are used for planning, meaning a way of deciding on a course of action by considering possible future situations, before they are actually experienced. Methods for solving reinforcement learning problems that use models and planning are called model-based methods, as opposed to simpler model-free methods that are explicitly trial-and-error learners (viewed as almost the opposite of planning).
 
-The advantages of having a model are that this allows the agent to plan by thinking ahead, seeing what would happen for a range of possible choices, and explicitly deciding between its options. A famouse example of this approach is AlphaZero \cite{silver2017mastering}.
+The advantages of having a model are that this allows the agent to plan by thinking ahead, seeing what would happen for a range of possible choices, and explicitly deciding between its options. A famouse example of this approach is AlphaZero. \cite{silver2017mastering}
 
-Even if having a model could realy help the learner, a ground-truth model of the environment is usually not available to the agent. In this cases agents have to learn he model purely from experience, and the model-learning is fundamentally hard.
+Even if having a model could really help the learner, unfortunately, a ground-truth model of the environment is not always available to the agent. In these cases agents have to learn the model directly from experience, and the model-learning is fundamentally hard.
 
 \subsection{What to learn}
 
@@ -308,7 +312,7 @@ Another critical branching point in an RL algorithm is deciding what to learn, t
 	\item Model of the environment
 \end{itemize}
 
-Policy methods directly differentiate the objective function in \autoref{eq:objective}. In contrast, action-value function and state value function methods, estimate the the optimal state-function or Q-function of the optimal policy, but not explicitly the policy.
+Policy methods directly differentiate the objective function in \autoref{eq:objective}. In contrast, action-value function and state-value function methods, seeks to estimate the optimal state-function or Q-function of the optimal policy, but not explicitly the policy itself.
 
 
 \subsection{Q-learning}
@@ -341,24 +345,24 @@ $Q$ has been shown to converge with probability $1$ to $Q^*$ \cite{10.5555/33120
 	\label{alg:q-learning}
 \end{algorithm}
 
-In this case, the learned action-value function, $Q$, directly approximates $Q^*$, the optimal action-value function, independent of the policy being followed. Then from the lerned action-value function which aproximate $Q^*$ it's possible to derive $\pi^*$ by \autoref{eq:opt-policy}.
+In this case, the learned action-value function, $Q$, directly approximates $Q^*$, the optimal action-value function, independent of the policy being followed. Then from the learned action-value function that aproximate $Q^*$ it is possible to derive $\pi^*$ by \autoref{eq:opt-policy}.
 
 \subsection{Function aproximation}
-Q-learning algorithm is a method to achieve optimal value functions and optimal policies. An agent that learns an optimal policy reaches his goal, but in practice this rarely happens. For the most intresting tasks, optimal policies can be generated only with extreme computational cost. Even if the agent have a complete and accurate model of the environment’s dynamics, it is usually not possible to simply compute an optimal policy by solving the Bellman optimality equation. A critical aspect of the problem facing the agent is always the computational power available to it, in particular, the amount of computation it can perform in a single time step.
+Q-learning algorithm is a method to achieve optimal value functions and optimal policies. An agent that learns an optimal policy reaches its goal, but in practice this rarely happens. For the most intresting tasks, optimal policies can be generated only with extreme computational cost. Even if the agent has a complete and accurate model of the environment’s dynamics, it is usually not possible to simply compute an optimal policy by solving the Bellman optimality equation. A critical aspect of the problem faced by the agent is always the computational power available to it, in particular, the amount of computation it can perform in a single time step.
 
-The memory available is also an important constraint. A large amount of memory is often required to build up approximations of value functions, policies, and models. In the Q-learning algortihm(Algorithm \ref{alg:q-learning}.), it's necessary to build a table for each state-action pair, however, in many cases of practical interest there are far more states than could possibly be entries in a table, so this apporach is not scalable. In these cases the functions must be approximated, using some sort of more compact parameterized function representation.
+The memory available is also an important constraint. A large amount of memory is often required to build up approximations of value functions, policies, and models. In the Q-learning algortihm (Algorithm \ref{alg:q-learning}.), it is necessary to build a table for each state-action pair, however, in many cases of practical interest there are far more states that could possibly be entries in a table, so this apporach is not scalable. In these cases the functions must be approximated, using some sort of more compact parameterized function representation.
 
-Besides the space and time complexity when dealing with a huge number of states, it could be useful to achieve some approximations. For example, in approximating optimal behavior, there may be many states that the agent faces with such a low probability that selecting suboptimal actions for them has little impact on the amount of reward the agent receives. The online nature of reinforcement learning (i.e. data becomes available in a sequential order over time) makes it possible to approximate optimal policies in ways that put more effort into learning to make good decisions for frequently encountered states, at the expense of less effort for infrequently encountered states. This is one key property that distinguishes reinforcement learning from other approaches to approximately solving MDPs.
+Besides the space and time complexity when dealing with a huge number of states, it could be useful to achieve some approximations. For example, in approximating optimal behavior, there may be many states that the agent faces with such a low probability. The online nature of reinforcement learning (i.e. data becomes available in a sequential order over time) makes it possible to approximate optimal policies in ways that put more effort into learning to make good decisions for frequently encountered states, at the expense of less effort for infrequently encountered states. This is one key property that distinguishes reinforcement learning from other approaches to approximately solving MDPs.
 
-To make sensible decisions in large states space it is necessary to generalize from previous encounters states. Those previous encountered states are different from the current one but could be in some sense similar. The kind of generalization required is called function approximation because it takes examples from a desired function (e.g., a value function) and attempts to generalize from them to construct an approximation of the entire function. To achieve this, any of a broad range of existing methods for supervised-learning function approximation can be used simply by treating each update as a training example provided by interaction between the agent and the environment.
+To make sensible decisions in large states space it is necessary to generalize from previous encountered states. Those previous encountered states are different from the current ones but could be in some sense similar. The kind of generalization required is called function approximation because it takes examples from a desired function (e.g. a value function) and attempts to generalize from them to construct an approximation of the entire function. To achieve this, any of a broad range of existing methods for supervised-learning function approximation, can be used simply by treating each update as a training example provided by interaction between the agent and the environment.
 
 \subsection{ Deep RL}
 Since achieveing generalization in state representation is simply function aproximation, artificial neural networks could be used to aproximate those functions. 
-Most successful RL applications that deals with huge amount of stetes, relies on hand-crafted features combined with linear value functions or policy representations to aproximate state \cite{mnih2013atari}. The performance of such systems heavily relies on the quality of the feature representation.
+Most successful RL applications that deal with a huge amount of states, rely on hand-crafted features combined with linear value functions or policy representations to aproximate states \cite{mnih2013atari}. The performance of such systems heavily relies on the quality of the feature representation.
 
 In the work of David Silver et al. "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari} they presented a deep learning model to successfully learn control policies directly from high-dimensional sensory input using reinforcement learning. The idea is to represent $Q(s,a)$ as a neural network  $f(s)$, which given a vector $s$ will output a vector of $Q$-values for all possible actions $a$.
 
-In the work "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari}, they developed an agent on the challenging domain of classic Atari 2600 games. They demonstrate that the deep Q-network agent, receiving only the pixels (processed by a convolutional neural network, hence a deep learning approach) and the game score as inputs, was able to surpass the performance of all previous algorithms and achieve a level comparable to that of a professional human games tester across a set of 49 games, using the same algorithm, network architecture and hyperparameters. This work bridges the divide between high-dimensional sensory inputs and actions, resulting in the first artificial agent that is capable of learning to excel at a diverse array of challenging tasks.
+In the work "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari}, they developed an agent on the challenging domain of classic Atari 2600 games. They demonstrate that the deep Q-network agent, receiving only the pixels (processed by a convolutional neural network, hence a deep learning approach) and the game score as inputs, was able to surpass the performance of all previous algorithms. Furthermore it achieve a level comparable to that of a professional human games tester. This work bridges the divide between high-dimensional sensory inputs and actions, resulting in the first artificial agent that is capable of learning to excel at a diverse array of challenging tasks.
 
 \begin{figure}[h]
 	\centering
@@ -399,10 +403,10 @@ The game of Go has long been viewed as the most challenging of classic games for
 	
 \end{longtable}
 
-As descriped in the work "Mastering the game of Go with deep neural networks and tree search"\cite{Silver_2016} by David Silver et al, all games of perfect information have an optimal value function, $v^*(s)$, which determines the outcome of the game, from every board position
+As described in the work "Mastering the game of Go with deep neural networks and tree search"\cite{Silver_2016} by David Silver et al, all games of perfect information have an optimal value function, $v^*(s)$, which determines the outcome of the game, from every board position
 or state $s$, under perfect play by all players. These games may be solved by recursively computing the optimal value function in a search tree
 containing approximately $b^d$ possible sequences of moves, where $b$ is
-the game’s breadth (number of legal moves per position) and $d$ is its depth (game length). In large games, such as chess ($b \approx 35$,$ d \approx 80$) \cite{Allis1994SearchingFS} and especially Go ( $b \approx 250$, $d \approx 150$) \cite{Allis1994SearchingFS}, exhaustive search is infeasible, but the effective search space can be reduced by two general principles. First, the depth of the search may be reduced by position evaluation: truncating the search tree at state $s$ and replacing the subtree below $s$ by an approximate value function $v(s) \approx v^*(s)$ that predicts the outcome from state $s$. This approach has led to superhuman performance in chess \cite{CAMPBELL200257} (the famous deep blue program that defeated Garry Kasparov) and checkers \cite{10.1007/3-540-48957-6_8} but it was believed to be intractable in Go due to the complexity of the game \cite{MULLER2002145}. Second, the breadth of the search
+the game’s breadth (number of legal moves per position) and $d$ is its depth (game length). In large games, such as chess ($b \approx 35$,$ d \approx 80$) \cite{Allis1994SearchingFS} and especially Go ( $b \approx 250$, $d \approx 150$) \cite{Allis1994SearchingFS}, exhaustive search is infeasible, but the effective search space can be reduced by two general principles. First, the depth of the search may be reduced by position evaluation: truncating the search tree at state $s$ and replacing the subtree below $s$ by an approximate value function $v(s) \approx v^*(s)$ that predicts the outcome from state $s$. This approach has led to superhuman performance in chess \cite{CAMPBELL200257} (the famous "Deep Blue" program that defeated Garry Kasparov\cite{CAMPBELL200257}) and checkers \cite{10.1007/3-540-48957-6_8} but it was believed to be intractable in Go due to the complexity of the game \cite{MULLER2002145}. Second, the breadth of the search
 may be reduced by sampling actions from a policy $p(a|s)$ that is a probability distribution over possible moves $a$ in position $s$. For example,
 Monte Carlo rollouts search to maximum depth without branching at all, by sampling long sequences of actions for both players from a
 policy $p$. Averaging over such rollouts can provide an effective position evaluation, achieving weak amateur level play in Go \cite{Bouzy2004}.
@@ -413,14 +417,14 @@ In the first version of AlphaGo \cite{Silver_2016}, by a combination of supervis
 The next version of AlphaGo is AlphaGo Zero \cite{silver2017mastering}, an algorithm based solely on reinforcement learning, without human data, guidance or domain knowledge beyond game rules. Starting tabula rasa, AlphaGo Zero achieved superhuman performance in Go, winning 100–0 against the previously published, champion-defeating, AlphaGo.
 
 \subsection{Neural network architecture  of AlphaGo Zero}
-In AlphaGo Zero a depp neural $f_\theta$ with parameters $\theta$ is used. This neural network takes as an input the raw board representation $s$ of the position and outputs both move probabilities and a value, $f_\theta = (p,v)$. 
+In AlphaGo Zero a deep neural network $f_\theta$ with parameters $\theta$ is used. This neural network takes as an input the raw board representation $s$ of the position and outputs both move probabilities and a value, $f_\theta = (p,v)$. 
 
 The output of the neural networks are:
 \begin{itemize}
-	\item Vector $p$: The vector of move probabilities $p$ represents the probability of selecting each move, $p_a = P(a | s)$
-	\item Scalar $v$: The value $v$ is a scalar evaluation, estimating the probability of the current player winning from position $s$
+	\item Vector $p$: the vector of move probabilities $p$ represents the probability of selecting each move, $p_a = P(a | s)$
+	\item Scalar $v$: the value $v$ is a scalar evaluation, estimating the probability of the current player winning from position $s$
 \end{itemize}
-In the previous version of AlphaGo \cite{Silver_2016}, two different deep neural networks were used to predict both $p$ and $v$. On the other hand, in AlphaGo Zero, these two neural networks are combined into a single one with two different outputs, treating the task as a multi-task learning problem. Another new aspect of these neural network is the introduction of many residual blocks of convolutional layers.
+In the previous version of AlphaGo \cite{Silver_2016}, two different deep neural networks were used to predict both $p$ and $v$. On the other hand, in AlphaGo Zero, these two neural networks are combined into a single one with two different outputs, treating the task as a multi-task learning problem. Another new aspect of this neural network is the introduction of many residual blocks of convolutional layers.
 
 The final neural network takes as input features the board state $s$,  and consists in these layers:
 
@@ -512,13 +516,13 @@ The final neural network takes as input features the board state $s$,  and consi
 \footnotetext{\url{https://medium.com/applied-data-science/alphago-zero-explained-in-one-diagram-365f5abf67e0}}
 
 \subsection{Reinforcement learning in AlphaGo Zero}
-The neural network in AlphaGo Zero is trained from games of self­ play by a novel reinforcement learning algorithm. In each position $s$, an MCTS search is executed, guided by the neural network $f_\theta$. The MCTS search outputs probabilities $\pi$ of playing each move. These search probabilities usually select much stronger moves than the raw move probabilities $p$ of the neural network $f_\theta(s)$; MCTS may therefore be viewed as a powerful policy improvement operator. Self­play with search may be viewed as a powerful policy evaluation operator. During the self-play the MCTS-based policy is used to select each move, and the game winner $z$ is used as a sample of the value $v$ (the winning player).
+The neural network in AlphaGo Zero is trained from games of self­ play by a novel reinforcement learning algorithm. In each position $s$, a MCTS search is executed, guided by the neural network $f_\theta$. The MCTS search outputs probabilities $\pi$ of playing each move. These search probabilities usually select much stronger moves than the raw move probabilities $p$ of the neural network $f_\theta(s)$; MCTS may therefore be viewed as a powerful policy improvement operator. Self-­play with search may be viewed as a powerful policy evaluation operator. During the self-play the MCTS-based policy is used to select each move, and the game winner $z$ is used as a sample of the value $v$ (the winning player).
 
 \subsubsection{Self-play}
 
-The main idea of this reinforcement learning algorithm is to use these search operators in a policy iteration procedure: the neural network’s parameters are updated to make the move probabilities and value $(p, v) = f_\theta(s)$ more closely match the improved search probabilities and self play winner $(\pi, z)$; these new parameters are used in the next iteration of self-play to make the search even stronger.
+The main idea of this reinforcement learning algorithm is to use these search operators in a policy iteration procedure: the neural network’s parameters are updated to make the move probabilities and value $(p, v) = f_\theta(s)$ more closely match the improved search probabilities and self play winner $(\pi, z)$. These new parameters are used in the next iteration of self-play to make the search even stronger.
 
-The self-play pipeline is performed as following (see \autoref{fig:alpha-zero-self_play}): The program plays a game $s_1, \, ..., \, s_t$ against itself. In each position $s_t$, an MCTS $\alpha_\theta$ is executed (see \autoref{fig:alpha-zero-mcts}) using the latest neural network $f_\theta$. Moves are selected according to the search probabilities computed by the MCTS, $a_t \sim \pi_t$. The terminal position $s_T$ is scored according to the rules of the game to compute the game winner $z$.
+The self-play pipeline is performed as following (see \autoref{fig:alpha-zero-self_play}): the program plays a game $s_1, \, ..., \, s_t$ against itself. In each position $s_t$, a MCTS $\alpha_\theta$ is executed (see \autoref{fig:alpha-zero-mcts}) using the latest neural network $f_\theta$. Moves are selected according to the search probabilities computed by the MCTS, $a_t \sim \pi_t$. The terminal position $s_T$ is scored according to the rules of the game to compute the game winner $z$.
 
 \begin{figure}[H]
 		\centering
@@ -550,11 +554,11 @@ The action-value function is defined as:
 \end{equation}
 where $s, a \rightarrow s'$ indicates that a simulation eventually reached $s'$ after taking move a from position $s$.
 
-The reason why the chosen action $a$ maximise the sum $Q(s_t,a) + U(s_t,a)$ and not only the action-value function $Q(s_t, a)$ is because $U(s_t,a)$ acts as an exploration factor. The exploration-exploitation tradeoff is taken into account by this factor $U(s_t,a)$, which is defined as:
+The reason why the chosen action $a$ maximize the sum $Q(s_t,a) + U(s_t,a)$ and not only the action-value function $Q(s_t, a)$ is because $U(s_t,a)$ acts as an exploration factor. The exploration-exploitation tradeoff is taken into account by this factor $U(s_t,a)$, which is defined as:
 \begin{equation}
 	U(s, a) = c_{puct}P(s, a)\frac{\sum_b N(s,b)}{1+N(s,a)}
 \end{equation}
-where $c_{puct}$ is a constant determining the level of exploration; this search control strategy initially prefers actions with high prior probability and low visit count, but asympotically prefers actions with high action value.
+where $c_{puct}$ is a constant determining the level of exploration. This search control strategy initially prefers actions with high prior probability and low visit count, but asymptotically prefers actions with high action value.
 
 MCTS may be viewed as a self-play algorithm that, given neural network parameters $\theta$ and a root position $s$, computes a vector of search probabilities recommending moves to play, $\pi = \alpha_\theta(s)$.
 
@@ -566,16 +570,16 @@ The key points of the algorithm are summarized in the \autoref{fig:alpha-zero-mc
 \end{figure}
 
 \subsubsection{Loss function}
-The parameters $\theta$ are adjusted by gradient descent on a loss function $L$ that sums over the mean-squared error to (to have $v$ as close as possible to $z$) and cross-entropy losses (to have $p$ as close as possible to $\pi$), respectively:
+The parameters $\theta$ are adjusted by gradient descent on a loss function $L$ that sums over the mean-squared error (to have $v$ as close as possible to $z$) and cross-entropy losses (to have $p$ as close as possible to $\pi$), respectively:
 \begin{equation}\label{eq:loss_function_alphazero}
 	(p,v) = f_\theta(s),\, L = (z-v)^2 - \pi_t log(p) + c \norm{\theta}^2
 \end{equation}
 where $c$ is a parameter controlling the level of L2 weight regularization to prevent overfitting.
 
 \subsection{Superhuman performance of AlphaGo Zero}
-As discussed in previous sectioon, AlphaGo Zero has been trained without human knowledge, this eventually leads to superhuman performance in the game of Go, even beating 100-0 the previous version of AlphaGo. This previous version was trained using supervised learning on the master Go player moves. On the other hand, AlphaGo Zero started from completely random behaviour and continued without human data nor intervention.
+As discussed in previous section, AlphaGo Zero has been trained without human knowledge, this eventually leads to superhuman performance in the game of Go, even beating 100-0 the previous version of AlphaGo. This previous version was trained using supervised learning on the master Go player moves. On the other hand, AlphaGo Zero started from completely random behaviour and continued without human data nor intervention.
 
-In order to understend the performance of AlphaGo Zero, is interesting to analyze its empirical training results of each MCTS player $\alpha_{\theta_i}$ from each iteration $i$ of reinforcement learning in AlphaGo Zero, in comparison to a similar player trained by supervised learning from human data, using the KGS dataset\footnote{KGS dataset (available from \url{https://u-go.net/gamerecords/}).}. The Elo rating is a way to define the strength of the player. The results are shown in  \autoref{fig:training-elo}. As we can see, RL-approach is able to reach higher Elo rating and even in less amount of time.
+In order to understend the performance of AlphaGo Zero, it is interesting to analyze its empirical training results of each MCTS player $\alpha_{\theta_i}$ from each iteration $i$ of reinforcement learning in AlphaGo Zero, in comparison to a similar player trained by supervised learning from human data, using the KGS dataset\footnote{KGS dataset (available from \url{https://u-go.net/gamerecords/}).}. The Elo rating is a way to define the strength of the player. The results are shown in  \autoref{fig:training-elo}. As we can see, RL-approach is able to reach higher Elo rating and even in less amount of time.
 
 \begin{figure}[H]
 	\centering
@@ -584,11 +588,11 @@ In order to understend the performance of AlphaGo Zero, is interesting to analyz
 	\label{fig:training-elo}
 \end{figure}
 
-Another interesting result is the difference in prediction accuracy on human professional moves between the neural netwrok $f_{\theta_i}$ at each iteration of self-play $i$, and the neural network trained by supervised learning. The accuracy measures the percentage of positions in which the neural network assigns the highest probability of action to take equal to that taken by the professional human, shown in \autoref{fig:training-acc}.
+Another interesting result is the difference in prediction accuracy on human professional moves between the neural netwrok $f_{\theta_i}$ at each iteration of self-play $i$, and the neural network trained by supervised learning. The accuracy measures the percentage of positions in which the neural network assigns the highest probability of action to that taken by a professional humanplayer, shown in \autoref{fig:training-acc}.
 
-In addition to the accuracy in prediction human moves, it's possible to consider the MSE in predicting the outcome of games. The MSE is between the actual outcome $z \in {-1, 1}$ and the neural network value $v$, scaled to the range of $0-1$, shown in \autopageref{fig:training-mse}.
+In addition to the accuracy in prediction human moves, iti s possible to consider the MSE in predicting the outcome of games. The MSE is between the actual outcome $z \in {-1, 1}$ and the neural network value $v$, scaled to the range of $0-1$, shown in \autopageref{fig:training-mse}.
 
-The astonishing fact is that , even if AlphaGo zero performs worse in predicting master Go player moves, it is better in prediction the actual outcome of a game (lower MSE). This is due to nature of reinforcement learning. Since in the RL approach we are not in charge of giving any kind of human expertise to the algorithm, there is no human knowledge celing to the performances.
+The astonishing fact is that, even if AlphaGo zero performs worse in predicting master Go player moves, it is better in predict the actual outcome of a game (lower MSE). This is due to nature of reinforcement learning. Since in the RL approach we are not in charge of giving any kind of human expertise to the algorithm, there is no human knowledge celing to the performances.
 
 \begin{figure}[H]
 	\begin{subfigure}{.5\textwidth}
@@ -613,7 +617,6 @@ Ho aggiunto parallelizazione come in DQN
 
 No residual blocks dato che la rete ho meno risorse
 
-\bibliographystyle{unsrt}  % TODO: Change style
-\bibliography{references}
+\printbibliography
 
 \end{document}
