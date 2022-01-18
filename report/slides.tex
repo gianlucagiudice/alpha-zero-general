@@ -240,7 +240,7 @@ sectionstyle=show/shaded,
 	\frametitle{Policies}
 \begin{itemize}
 	\item A \textbf{policy} defines the learning agent's way of behaving, it is a mapping from perceived states of the environment (i.e. observations) to actions to be taken when in those states.
-	\item A policy fully defines the behaviour of an agent.
+	\item A policy fully defines the behavior of an agent.
 \end{itemize}
 
 \begin{definition}
@@ -421,7 +421,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\frametitle{Q-Learing}
 	An example of RL algorithm is Q-learning.\\
 	\begin{itemize}
-		\item Q-Learning methods learn an approximator $Q_{\theta}(s,a)$ for the optimal action-value function, $Q^*(s,a)$.
+		\item Q-Learning methods learn an approximation $Q_{\theta}(s,a)$ for the optimal action-value function, $Q^*(s,a)$.
 		\item The Q-learning algorithm keeps an estimate $Q(s,a)$ of $Q^*(s,a)$ for each state-action pair $(s,a) \in S \times A$.
 		\item By observing $(s_t, a_t, r_{t+1}, s_{t+1})$ the estimates are updated.
 	\end{itemize}
@@ -623,7 +623,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		\begin{itemize}
 			\item A graphical user interface to play against the agent.
 			\item A simpler neural network architecture.
-			\item Episoded of self-play performed in parallel to drastically reduce the training time (taking inspiration form the work of David Silver "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari}).
+			\item Episodes of self-play are performed in parallel to drastically reduce the training time (taking inspiration form the work of David Silver "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari}).
 
 		\end{itemize}
 
