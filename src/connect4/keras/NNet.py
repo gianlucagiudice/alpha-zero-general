@@ -1,3 +1,5 @@
+import visualkeras
+
 from src.NeuralNet import NeuralNet
 
 from src.connect4.keras.Connect4NNet import Connect4NNet
@@ -9,7 +11,7 @@ import os
 args = dict(
     lr=0.001,
     dropout=0.3,
-    epochs=15,
+    epochs=10,
     batch_size=64,
     cuda=False,
     num_channels=512,
@@ -60,3 +62,7 @@ class NNetWrapper(NeuralNet):
         if not os.path.exists(filepath):
             raise("No model in path '{}'".format(filepath))
         self.nnet.model.load_weights(filepath)
+
+    def save_plot_network(self, folder='report/images', filename='my-nnet-arch.png'):
+        file_path = os.path.join(folder, filename)
+        visualkeras.layered_view(self.nnet.model, legend=True, to_file=file_path, spacing=5)

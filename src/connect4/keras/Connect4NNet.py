@@ -37,8 +37,8 @@ class Connect4NNet:
         h_conv4_flat = Flatten()(h_conv4)
 
         # Dense layers
-        s_fc1 = Dropout(dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(1024)(h_conv4_flat))))
-        s_fc2 = Dropout(dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(512)(s_fc1))))
+        s_fc1 = Dropout(dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(512)(h_conv4_flat))))
+        s_fc2 = Dropout(dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(256)(s_fc1))))
 
         # Multitask learning
         self.pi = Dense(self.action_size, activation='softmax', name='pi')(s_fc2)
