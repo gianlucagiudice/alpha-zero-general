@@ -630,6 +630,8 @@ Beside this marginal change, I performed two major changes to the original code:
 \item Episodes of self-play performed in parallel.
 \end{enumerate}
 
+The code that I developed is available here\footnote{\url{https://github.com/gianlucagiudice/alpha-zero-general}} on github.
+
 \subsection{Proposed neural network architecture}
 Since the game of Connect4 is a lot easier compared to the game of Go \autoref{tab:game-complexity}, it would be a waste of resources to use the same neural network proposed in \autoref{nn-arch}. To this reason I used a much simpler architecture and I removed the skip-connections among layers. The neural network used consists in 4.5M parameters and is composed by:
 
