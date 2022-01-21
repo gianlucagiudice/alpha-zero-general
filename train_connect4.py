@@ -1,3 +1,4 @@
+from ast import arg
 import logging
 import os
 import pickle
@@ -24,7 +25,9 @@ args = dict(
 
     checkpoint='temp/',
     load_model=False,
-    load_folder_file=('/dev/models/8x100x50', 'best.pth.tar'),
+    load_folder_file=('temp/', 'best.h5'),
+    load_folder_file_examples=('temp/', 'checkpoint_87.h5.examples'),
+    start_iteration=1,
     numItersForTrainExamplesHistory=20,
     nThreads=cpu_count()
 )
@@ -40,7 +43,7 @@ def main(log):
     # Neural network info
     log.info('Neural network info:')
     log.info(nnet.nnet.model.summary())
-    plot_model(nnet.nnet.model, to_file=os.path.join('src', 'connect4', 'keras', 'architecture.png'))
+    plot_model(nnet.nnet.model, to_file=os.path.join('report', 'images', 'architecture.png'))
 
     # Load weigths
     if args['load_model']:
@@ -55,11 +58,11 @@ def main(log):
 
     if args['load_model']:
         log.info("Loading 'trainExamples' from file...")
-        c.loadTrainExamples()
+        c.loadTrainExamples(args['load_folder_file_examples'][0], args['load_folder_file_examples'][1])
 
     # Start training
     log.info('Starting the learning process 🎉')
-    c.learn()
+    c.learn(start_iteration=args['start_iteration'])
 
 
 if __name__ == "__main__":

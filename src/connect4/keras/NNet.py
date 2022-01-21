@@ -10,11 +10,11 @@ import os
 
 args = dict(
     lr=0.001,
-    dropout=0.3,
+    dropout=0.2,
     epochs=10,
     batch_size=64,
     cuda=False,
-    num_channels=512,
+    num_channels=128,
 )
 
 
