@@ -82,7 +82,7 @@ class Coach:
             if r != 0:
                 return [(x[0], x[2], r * ((-1) ** (x[1] != curPlayer))) for x in trainExamples]
 
-    def learn(self):
+    def learn(self, start_iteration=1):
         """
         Performs numIters iterations with numEps episodes of self-play in each
         iteration. After every iteration, it retrains neural network with
@@ -93,7 +93,7 @@ class Coach:
 
         starting_time = time.time()
 
-        for i in range(1, self.args['numIters'] + 1):
+        for i in range(start_iteration, self.args['numIters'] + 1):
             # bookkeeping
             log.info(f'Starting Iter #{i} ... (Elapsed time: {compute_elapsed_time(starting_time, time.time())})')
             # examples of the iteration
@@ -180,9 +180,8 @@ class Coach:
             Pickler(f).dump(self.trainExamplesHistory)
         f.closed
 
-    def loadTrainExamples(self):
-        modelFile = os.path.join(self.args['load_folder_file'][0], self.args['load_folder_file'][1])
-        examplesFile = modelFile + ".examples"
+    def loadTrainExamples(self, folder='checkpoint', filename='checkpoint.pth.tar'):
+        examplesFile = os.path.join(folder, filename)
         if not os.path.isfile(examplesFile):
             log.warning(f'File "{examplesFile}" with trainExamples not found!')
             r = input("Continue? [y|n]")
