@@ -17,6 +17,9 @@
 
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
+\usepackage{ragged2e}
+\justifying
+
 \usepackage[
 backend=biber,
 style=numeric,
@@ -109,6 +112,7 @@ University of Milano-Bicocca\\
 
 \begin{document}
 
+%\setbeamertemplate{headline}{}
 \begin{frame}
 \titlepage % Print the title page as the first slide
 \end{frame}
@@ -129,9 +133,12 @@ What makes reinforcement learning different from other machine learning paradigm
 \begin{itemize}
 	\item Interactions between agent and environment
 \end{itemize}
-\item Feedback is delayed, not instantaneous
+\item Feedback is delayed
 \item Time really matters (sequential, non i.i.d data)
 \item Agent's actions affect the subsequent data it receives
+\begin{itemize}
+	\item Greedy good actions could be penalizing in the future
+\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -199,7 +206,7 @@ sectionstyle=show/shaded,
 
 \item A \textbf{state} $s$ is a complete description of the state of the world
 \item An \textbf{observation} $o$ is a partial description of a state
-\item Markov decision processes are a mathematical way to describe RL problems. 
+\item Markov decision processes are a mathematical way to describe RL problems
 
 \end{itemize}
 
@@ -240,10 +247,11 @@ sectionstyle=show/shaded,
 
 
 \begin{frame}
+	
 	\frametitle{Policies}
 \begin{itemize}
-	\item A \textbf{policy} defines the learning agent's way of behaving, it is a mapping from perceived states of the environment (i.e. observations) to actions to be taken when in those states.
-	\item A policy fully defines the behavior of an agent.
+	\item A \textbf{policy} defines the learning agent's way of behaving, it is a mapping from perceived states of the environment (i.e. observations) to actions to be taken when in those states
+	\item A policy fully defines the behavior of an agent
 \end{itemize}
 
 \begin{definition}
@@ -270,8 +278,9 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\begin{itemize}
 		\item The reward function $R$ depends on the current state of the world and action just taken:
 		$$r_t = R(s_t, a_t)$$
-		\item The agent aim to maximize the cumulative reward over a trajectory.
-		\item The sum of all rewards obtained by the agent is discounted by how far off in the future they are obtained. \item The discount factor is $\gamma \in [0,1]$.
+		\item The agent aim to maximize the cumulative reward over a trajectory
+		\item The sum of all rewards obtained by the agent is discounted by how far off in the future they are obtained
+		\item The discount factor is $\gamma \in [0,1]$
 		\item The cumulative reward over a trajectory is:		
 			\begin{equation}
 			R(\tau) = \sum_{t=0}^{H-1} \gamma^t r_t
@@ -290,8 +299,8 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\frametitle{RL optimization problem}
 
 		\begin{itemize}
-			\item The goal in RL is to \textbf{maximize the expected return} when an agent acts according to a policy.
-			\item The policy influences the probability distribution over trajectories.
+			\item The goal in RL is to \textbf{maximize the expected return} when an agent acts according to a policy
+			\item The policy influences the probability distribution over trajectories
 		\item The probability of a $T$-step trajectory is:
 
 			\begin{equation}
@@ -324,7 +333,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 	\frametitle{Value function}
 
-		A crucial aspect of RL are state-value function and action-value function.
+		Crucial aspects of RL are state-value function and action-value function:
 
 		\begin{definition}
 			The \textbf{State-Value Function} of a policy, $V^{\pi}(s)$ is the expected return by starting in state $s$ and always acting according to policy $\pi$:
@@ -374,7 +383,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 \begin{frame}
 	\frametitle{Optimal value function and optimal policy }
-	By having $Q^*(s,a)$, it's possible to directly obtain the optimal action $a^*(s)$:
+	By having $Q^*(s,a)$, it is possible to directly obtain the optimal action $a^*(s)$:
 
 	\begin{equation}
 		a^*(s) = \argmax_{a \in A} Q^* (s,a)
@@ -434,11 +443,12 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 \begin{frame}
 	\frametitle{Q-Learing}
-	An example of RL algorithm is Q-learning.\\
+	An example of RL algorithm is Q-learning:
+
 	\begin{itemize}
-		\item Q-Learning methods learn an approximation $Q_{\theta}(s,a)$ for the optimal action-value function, $Q^*(s,a)$.
-		\item The Q-learning algorithm keeps an estimate $Q(s,a)$ of $Q^*(s,a)$ for each state-action pair $(s,a) \in S \times A$.
-		\item By observing $(s_t, a_t, r_{t+1}, s_{t+1})$ the estimates are updated.
+		\item Q-Learning methods learn an approximation $Q_{\theta}(s,a)$ for the optimal action-value function, $Q^*(s,a)$
+		\item The Q-learning algorithm keeps an estimate $Q(s,a)$ of $Q^*(s,a)$ for each state-action pair $(s,a) \in S \times A$
+		\item By observing $(s_t, a_t, r_{t+1}, s_{t+1})$ the estimates are updated
 	\end{itemize}
 	
 	The idea behind Deep Reinforcement Learning is that since Q-Learning is simply function approximation, a Deep Neural Network could be used to approximate this function. 
@@ -463,29 +473,37 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 \begin{frame}
 	\frametitle{Motivation of AlphaGo Zero}
-	The game of Go is one of the most challenging classic games for artificial intelligence due to its enormous search space and the difficulty of evaluating board positions and moves.\\
-
-	Search algorithms that use minimax, alpha-beta pruning and evaluation function (the techniques used in DeepBlue\cite{CAMPBELL200257} to beat Garry Kasparov in the game of chess) can not be used in the game of Go due to its huge complexity.
-
+	\begin{itemize}
+		\item The game of Go is one of the most challenging games for artificial intelligence
+		\begin{itemize}
+			\item Enormous search space and the difficulty of evaluating board positions and moves
+		\end{itemize}
+		\item Search algorithms that use minimax, alpha-beta pruning and evaluation function can not be used in the game of Go due to its huge complexity.
+		\begin{itemize}
+			\item This techniques were used in DeepBlue\cite{CAMPBELL200257} to beat Garry Kasparov in the game of chess
+		\end{itemize}
+		
+	\end{itemize}
+	
 	\begin{table}
 
 		\tiny
 		\centering
 		
-		\begin{tabular}{|cccccc|}
+		\begin{tabular}{lccccc}
 
 		\hline
-		Game  &
+		\textbf{Game}  &
 		Board size (positions)  &
 		Game-tree complexity (log to base 10)  &
 		Complexity class\\
 		\hline
 		\hline
-		Tic-tac-toe	& 9  & 5 & PSPACE-complete\cite{Reisch1981HexIP} \\
-		Connect Four & 42 & 21 & in PSPACE \cite{Allis1994SearchingFS} \\
-		Checkers & 32  & 40   & EXPTIME-complete \cite{Robson1984NBN} \\
-		Chess & 64 & 123  & EXPTIME-complete \cite{FRAENKEL1981199} \\
-		Go (19x19) & 361 & 360 & EXPTIME-complete \cite{inproceedings} \\
+		\textbf{Tic-tac-toe}	& 9  & 5 & PSPACE-complete\cite{Reisch1981HexIP} \\
+		\textbf{Connect Four} & 42 & 21 & in PSPACE \cite{Allis1994SearchingFS} \\
+		\textbf{Checkers} & 32  & 40   & EXPTIME-complete \cite{Robson1984NBN} \\
+		\textbf{Chess} & 64 & 123  & EXPTIME-complete \cite{FRAENKEL1981199} \\
+		\textbf{Go (19x19)} & 361 & 360 & EXPTIME-complete \cite{inproceedings} \\
 		\hline
 		\end{tabular}
 		\caption{Complexity of the most famous board game.}
@@ -496,9 +514,8 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=3cm]{go-board.jpg}
+		\includegraphics[width=2cm]{go-board.jpg}
 	\end{figure}
-
 
 \end{frame}
 
@@ -508,16 +525,16 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\frametitle{AlphaGo Zero}
 	Characteristics of AlphaGo Zero:
 	\begin{itemize}
-		\item AlphaGo Zero \cite{silver2017mastering}, is an algorithm based on reinforcement learning.
-		\item It started from zero, without human knowledge beyond game rules.
+		\item AlphaGo Zero \cite{silver2017mastering}, is an algorithm based on reinforcement learning
+		\item It started from zero, without human knowledge beyond game rules
 		\item AlphaGo Zero achieved superhuman performance in Go.
 	\end{itemize}
 
 	A neural network is used for value-function approximation:
 	\begin{itemize}
-		\item In AlphaGo Zero a deep neural network $f_\theta$ with parameters $\theta$ is used.
-		\item The neural network takes as input the raw board representation $s$.
-		\item The first layer of the neural network is a convolutional layer, followed by 40 convolutional blocks with skip-connections.
+		\item AlphaGo Zero uses a deep neural network $f_\theta$ with parameters $\theta$
+		\item The neural network takes as input the raw board representation $s$
+		\item The first layer of the neural network is a convolutional layer, followed by 40 convolutional blocks with skip-connections
 		\item The neural network has two outputs (multitask learning):
 		\begin{itemize}		
 			\item Vector $p$: the vector of move probabilities $p$ represents the probability of selecting each move, $p_a = P(a | s)$
@@ -533,11 +550,14 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\frametitle{Self-play in AlphaGo Zero}
 	
 	\begin{itemize}
-		\item The neural network in AlphaGo Zero is trained from games of self-play.
-		\item In each position $s$, a MCTS search is executed, guided by the neural network $f_\theta$.
+		\item The neural network in AlphaGo Zero is trained from games of self-play
+		\item In each position $s$, a MCTS search is executed, guided by the neural network $f_\theta$
 		\item The MCTS search outputs probabilities $\pi$ of playing each move
-		\item MCTS may be viewed as a policy improvement operator, since these search probabilities select much stronger moves than the raw move probabilities $p$ of the neural network $f_\theta(s)$.
-		\item During the self-play the MCTS-based policy is used to select each move, and the game winner $z$ is used as a sample of the value $v$ (the winning player).
+		\item The MCTS output probabilities select much stronger moves than the raw move probabilities $p$ of the neural network $f_\theta(s)$
+		\begin{itemize}
+			\item MCTS can then be viewed as a policy improvement operator
+		\end{itemize}
+		\item During the self-play the MCTS-based policy is used to select each move, and the game winner $z$ is used as a sample of the value $v$ (the winning player)
 		\item Parameters are updated to make the move probabilities and value $f_\theta(s) = (p, v) $ match the search probabilities and self play winner $(\pi, z)$.
 	\end{itemize}
 \end{frame}
@@ -548,7 +568,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=7cm]{alpha_go_zero_training.png}
+		\includegraphics[width=6cm]{alpha_go_zero_training.png}
 		
 		\caption{
 			\textbf{Self-play} and \textbf{training} AlphaGo Zero.\cite{Silver_2016}
@@ -578,7 +598,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		U(s, a) = c_{puct}P(s, a)\frac{\sum_b N(s,b)}{1+N(s,a)}
 	\end{equation}
 
-	\item $U(s_t,a)$ acts as an exploration factor governed by $c_{puct}$.
+	\item $U(s_t,a)$ acts as an exploration factor governed by $c_{puct}$
 	\item This strategy initially prefers actions with high prior probability and low visit count, but asymptotically prefers actions with high action value.
 	\end{itemize}
 \end{frame}
@@ -619,7 +639,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		
 		\item Training the neural network:
 		\begin{itemize}
-			\item Use the old and new training data collected in the $K$ self-play games of the $I$-th iteration to fit the data in a fixed number of epochs using the new data collected in the $K$ self-play games of the $N$-th iteration, and the data from the previous iterations.
+			\item Use the old and new training data collected in the $K$ self-play games of the $I$-th iteration to fit the data in a fixed number of epochs using the new data collected in the $K$ self-play games of the $N$-th iteration, and the data from the previous iterations
 			\item Decrease of the loss of the neural network eventually leads to better search in the MCTS guided by $f_\theta$, hence leading to higher quality training examples in the next iteration, and so on.
 		\end{itemize}		
 	\end{enumerate}
@@ -630,9 +650,9 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\frametitle{Evaluation}
 
 	\begin{enumerate}
-		\item MCTS is guided by the neural network $f_\theta$, we want to be sure that the neural network $f_\theta$ is improving over the iterations.
-		\item Starting with the best neural network so far $f_{\theta'}$, at the end of each iteration, the latest neural network is evaluated.
-		\item Two players $\alpha_\theta$ and $\alpha_{\theta'}$ play $P$ games against each other.
+		\item MCTS is guided by the neural network $f_\theta$, we want to be sure that the neural network $f_\theta$ is improving over the iterations
+		\item Starting with the best neural network so far $f_{\theta'}$, at the end of each iteration, the latest neural network is evaluated
+		\item Two players $\alpha_\theta$ and $\alpha_{\theta'}$ play $P$ games against each other
 		\item If $\alpha_{\theta'}$ win a number of games higher than a threshold, then the new neural network $f_{\theta'}$ is considered the best network so far.
 	\end{enumerate}
 
@@ -677,11 +697,11 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\frametitle{Connect4 Zero}
 
 	\begin{itemize}
-		\item Use the techniques of AlphaGo Zero \cite{silver2017mastering} to achieve master level in Connect4.
-		\item I considered the game of Connect4 due to the limited computational resources at my disposal.
+		\item Use the techniques of AlphaGo Zero \cite{silver2017mastering} to achieve master level in Connect4
+		\item I considered the game of Connect4 due to the limited computational resources at my disposal
 		\item Starting from this code\footnote{\url{https://github.com/suragnair/alpha-zero-general}}, I changed it to support the game of Connect4. I also added:
 		\begin{itemize}
-			\item A graphical user interface to play against the agent.
+			\item A graphical user interface to play against the agent
 			\item A simpler neural network architecture. (In order to being able to perform the training on my machine)
 			\item Episodes of self-play are performed in parallel to drastically reduce the training time (taking inspiration form the work of David Silver "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari}).
 
@@ -711,7 +731,12 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 \begin{frame}
 	\frametitle{Connect4 Zero}
 	\Huge{\centerline{Live Demo}}
+\end{frame}
 
+\section{}
+\begin{frame}
+	\frametitle{Connect4 Zero}
+	\Huge{\centerline{Thank you for your attention!}}
 \end{frame}
 
 %------------------------------------------------
