@@ -1,4 +1,4 @@
-\documentclass[10pt]{beamer}
+\documentclass[9pt]{beamer}
 
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -11,6 +11,9 @@
 \usepackage{threeparttablex, caption}
 \usepackage{makecell}
 \DeclareMathOperator*{\argmax}{arg\,max}
+
+\usepackage{etoolbox}
+\AtBeginEnvironment{definition}{\small}
 
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
@@ -33,7 +36,7 @@ sorting=ynt
 %\usetheme{Antibes}
 %\usetheme{Bergen}
 %\usetheme{Berkeley}
-%\usetheme{Berlin}
+\usetheme{Berlin}
 %\usetheme{Boadilla}
 %\usetheme{CambridgeUS}
 %\usetheme{Copenhagen}
@@ -45,7 +48,7 @@ sorting=ynt
 %\usetheme{Ilmenau}
 %\usetheme{JuanLesPins}
 %\usetheme{Luebeck}
-\usetheme{Madrid}
+%\usetheme{Madrid}
 %\usetheme{Malmoe}
 %\usetheme{Marburg}
 %\usetheme{Montpellier}
@@ -112,7 +115,7 @@ University of Milano-Bicocca\\
 
 \begin{frame}
 \frametitle{Overview} % Table of contents slide, comment this block out to remove it
-\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your 
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and  commands, these will automatically be printed on this slide as an overview of your 
 \end{frame}
 
 \section{Introduction of Reinforcement learning}
@@ -148,7 +151,7 @@ sectionstyle=show/shaded,
 \end{frame}
 
 %------------------------------------------------
-\subsection{Agent and Environment}
+
 
 \begin{frame}
 \frametitle{Agent and Environment}
@@ -187,7 +190,7 @@ sectionstyle=show/shaded,
 \end{frame}
 
 %------------------------------------------------
-\subsection{States and observations}
+
 
 \begin{frame}
 \frametitle{States and observations}
@@ -222,20 +225,20 @@ sectionstyle=show/shaded,
 
 %------------------------------------------------
 
-\subsection{Action spaces}
+
 
 \begin{frame}
 	\frametitle{Action spaces}
 	\begin{itemize}
 		\item Different environments allow different kinds of actions
 		\item The set of all valid actions in a given environment is called the \textbf{action space}
-		\item Depending on the environment, the action spaces could be \textbf{discrete} or \textbf{continuous}.
+		\item Depending on the environment, the action spaces could be \textbf{discrete} or \textbf{continuous}
 	\end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
-\subsection{Policies}
+
 \begin{frame}
 	\frametitle{Policies}
 \begin{itemize}
@@ -244,7 +247,7 @@ sectionstyle=show/shaded,
 \end{itemize}
 
 \begin{definition}
-	 A \textbf{policy} $\pi$ is a distribution over actions given states
+	 A \textbf{policy} $\pi$ is a probability distribution over actions given states
 	
 	\begin{equation}
 	\pi(a | s) = \Pprob[A_t=a|S_t=s]
@@ -260,7 +263,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 %------------------------------------------------
 
 
-\subsection{Reward and return}
+
 \begin{frame}
 
 	\frametitle{Reward and return}
@@ -280,7 +283,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 %------------------------------------------------
 
-\subsection{RL optimization problem}
+
 
 \begin{frame}
 
@@ -315,7 +318,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 %------------------------------------------------
 
-\subsection{Value function}
+
 
 \begin{frame}
 
@@ -342,7 +345,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 %------------------------------------------------
 
-\subsection{Optimal value function and optimal policy }
+
 
 
 \begin{frame}
@@ -396,6 +399,18 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 
 \begin{frame}
+	\frametitle{RL algorithms}
+	
+	\tableofcontents[ 
+	currentsubsection, 
+	hideothersubsections, 
+	sectionstyle=show/shaded,
+	]
+	
+\end{frame}
+
+
+\begin{frame}
 	\frametitle{Taxonomy of RL algorithms}
 	The final objective of RL is to find the best policy, i.e.:
 
@@ -410,7 +425,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=7cm]{rl-taxonomy.png}
-		\caption{A non-exhaustive taxonomy of RL algorithms. \cite{SpinningUp2018}}
+		\caption{A non-exhaustive taxonomy of RL algorithms.\cite{SpinningUp2018}}
 		\label{fig:rl-taxonomy}
 	\end{figure}
 
@@ -587,6 +602,45 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 \end{frame}
 
+\begin{frame}
+	\frametitle{Training method}
+
+	The training consists in:
+	\begin{enumerate}
+		\item Self-play
+		\begin{itemize}
+			\item $N$ iteration of training phase
+			\item For each $N$ iteration, $K$ self-play games are played by the player $\alpha_\theta$ using MCTS guided by the neural network $f_\theta$.
+			\begin{itemize}
+				\item In each $K$ game the player $\alpha_\theta$ plays against itself in order to collect new training data.
+			\end{itemize}
+			\item In each $K$ game, for every move to choose, $J$ simulations of MCTS are performed in order to collect more confident outcomes of the games.
+		\end{itemize}
+		
+		\item Training the neural network:
+		\begin{itemize}
+			\item Use the old and new training data collected in the $K$ self-play games of the $I$-th iteration to fit the data in a fixed number of epochs using the new data collected in the $K$ self-play games of the $N$-th iteration, and the data from the previous iterations.
+			\item Decrease of the loss of the neural network eventually leads to better search in the MCTS guided by $f_\theta$, hence leading to higher quality training examples in the next iteration, and so on.
+		\end{itemize}		
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluation}
+
+	\begin{enumerate}
+		\item MCTS is guided by the neural network $f_\theta$, we want to be sure that the neural network $f_\theta$ is improving over the iterations.
+		\item Starting with the best neural network so far $f_{\theta'}$, at the end of each iteration, the latest neural network is evaluated.
+		\item Two players $\alpha_\theta$ and $\alpha_{\theta'}$ play $P$ games against each other.
+		\item If $\alpha_{\theta'}$ win a number of games higher than a threshold, then the new neural network $f_{\theta'}$ is considered the best network so far.
+	\end{enumerate}
+
+	\textbf{Note}: The number of games for evaluation are performed letting each player start the game half of the times.
+
+
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Empirical results of AlphaGo Zero}
@@ -597,13 +651,19 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		\caption{AlphaGo Zero performance. \cite{Silver_2016}}
 	\end{figure}
 
+	\begin{itemize}
+		\item AlphaGo zero performs worse in predicting master Go player moves
+		\item It is better in predicting the actual outcome of a game (lower MSE)
+		\item This is due to nature of reinforcement learning: since we are not in charge of giving any kind of human expertise to the algorithm, there is no human knowledge ceiling to the performances.
+	\end{itemize}
+
 \end{frame}
 
 
-\section{Hands-On: Connect4 Zero}
+\section{Hands-on: Connect4 Zero}
 
 \begin{frame}
-	\frametitle{Hands-On: Connect4 Zero}
+	\frametitle{Hands-on: Connect4 Zero}
 	
 	\tableofcontents[ 
 	currentsubsection, 
@@ -622,7 +682,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		\item Starting from this code\footnote{\url{https://github.com/suragnair/alpha-zero-general}}, I changed it to support the game of Connect4. I also added:
 		\begin{itemize}
 			\item A graphical user interface to play against the agent.
-			\item A simpler neural network architecture.
+			\item A simpler neural network architecture. (In order to being able to perform the training on my machine)
 			\item Episodes of self-play are performed in parallel to drastically reduce the training time (taking inspiration form the work of David Silver "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari}).
 
 		\end{itemize}
@@ -630,6 +690,23 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\end{itemize}
 
 \end{frame}
+
+
+\begin{frame}
+	\frametitle{Hyperparameters}
+	Training hyperparameters:
+
+	\begin{itemize}
+		\item Number of iterations: 200
+		\item Self-play games per each iteration: 100
+		\item Number of MCTS: 25
+		\item Number of games against previous agent: 10
+		\item Update threshold: 60\%
+		\item Number of training epochs: 10
+	\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Connect4 Zero}
