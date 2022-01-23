@@ -5,7 +5,6 @@ from src.Arena import Arena
 from src.connect4.keras.NNet import NNetWrapper
 from src.MCTS import MCTS
 from src.connect4.Connect4Players import MCTSConnect4Player
-import os
 
 
 def main():
@@ -25,7 +24,7 @@ def init_rl_player(game):
     # Init neural network
     nnet = NNetWrapper(game)
     # Load best weights
-    nnet.load_checkpoint('temp', 'best.h5')
+    nnet.load_checkpoint('models', 'best.h5')
     # Init Monte Carlo tree search
     mcts = MCTS(game, nnet, train_connect4.args)
     # Return player
