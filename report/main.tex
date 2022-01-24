@@ -69,7 +69,7 @@ In many complex domains, reinforcement learning is the only feasible way to trai
 
 \section{Key Concepts in Reinforcement Learning}
 
-The main characters of RL are the agent and the environment. The environment is the world that the agent lives in and interacts with. At each time $t$, the agent receives the current state $s_t$ and reward $r_t$. It then chooses an action $a_t$ from the set of available actions, which is subsequently sent to the environment. The environment moves to a new state $s_{t+1}$ and the reward $r_{t+1}$ associated with the transition $(s_{t},a_{t},s_{t+1})$ is determined.
+The main characters of RL are the agent and the environment. The environment is the world that the agent lives in and interacts with. At each time $t$, the agent receives the current state $s_t$ and reward $r_t$. It then chooses an action $a_t$ from the set of available actions, which is subsequently sent to the environment. The environment moves to a new state $s_{t+1}$ and the reward $r_{t+1}$ associated with the transition $(s_{t},a_{t},s_{t+1})$ is determined, as shown in \autoref{fig:rl-loop}.
 
 \begin{figure}
 	\centering
@@ -286,7 +286,7 @@ As seen before, from \autoref{eq:loss} and \autoref{eq:max_loss} the final objec
 	\label{eq:objective}
 \end{equation}
 
-There are a variety of algorithms to do so, depending on what to learn and how to learn it, for each of those, trade-offs must be taken into account.
+There are a variety of algorithms to do so (see \autoref{fig:rl-taxonomy}), depending on what to learn and how to learn it, for each of those, trade-offs must be taken into account.
 
 \begin{figure}[h]
 	\centering
@@ -298,7 +298,7 @@ There are a variety of algorithms to do so, depending on what to learn and how t
 
 \subsection{Model-free vs model-based}
 
-The first branching point in the \autoref{fig:rl-taxonomy} is whether the agent has access to a model  of the environment or needs to learn it.
+When defining RL algorithms, the first branching point (as shown in \autoref{fig:rl-taxonomy}) is whether the agent has access to a model of the environment or needs to learn it.
 
 Models are used for planning, meaning a way of deciding on a course of action by considering possible future situations, before they are actually experienced. Methods for solving reinforcement learning problems that use models and planning are called model-based methods, as opposed to model-free methods that are explicitly trial-and-error learners.
 
@@ -364,7 +364,7 @@ To make sensible decisions in large states space it is necessary to generalize f
 Since achieving generalization in state representation is simply function approximation, artificial neural networks could be used to approximate these functions. 
 Most successful RL applications that deal with a huge amount of states, rely on hand-crafted features combined with linear value functions or policy representations to approximate states \cite{mnih2013atari}. The performance of such systems heavily relies on the quality of the feature representation.
 
-In the work of David Silver et al. "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari} they presented a deep learning model to successfully learn control policies directly from high-dimensional sensory input using reinforcement learning. The idea is to represent $Q(s,a)$ as a neural network  $f(s)$, which given a vector $s$ will output a vector of $Q$-values for all possible actions $a$.
+In the work of David Silver et al. "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari} they presented a deep learning model to successfully learn control policies directly from high-dimensional sensory input using reinforcement learning. The idea is to represent $Q(s,a)$ as a neural network  $f(s)$, which given a vector $s$ will output a vector of $Q$-values for all possible actions $a$, as shown in \autoref{fig:dqn-architecture.png}.
 
 In the work "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari}, they developed an agent on the challenging domain of classic Atari 2600 games. They demonstrate that the deep Q-network agent, receiving only the pixels (processed by a deep convolutional neural network) and the game score as inputs, was able to surpass the performance of all previous algorithms. Furthermore it achieve a level comparable to that of a professional human games tester. This work bridges the divide between high-dimensional sensory inputs and actions, resulting in the first artificial agent that is capable of learning to excel at a diverse array of challenging tasks.
 
@@ -382,7 +382,8 @@ In the work "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari
 The game of Go has long been viewed as the most challenging of classic games for artificial intelligence owing to its enormous search space and the difficulty of evaluating board positions and moves. In the \autoref{tab:game-complexity} the complexity of some famous board games is summarized:
 
 
-\begin{longtable}{|cccccc|}
+\begin{longtable}{cccccc}
+	\caption{Complexity of the most famous board game.}\\
 	\hline
 	\thead{ Game } &
 	\thead{ Board size \\(positions) } &
@@ -391,7 +392,6 @@ The game of Go has long been viewed as the most challenging of classic games for
 	\thead{ Ref. } &
 	\thead{ Complexity class} \\
 	\hline
-	\hline
 	Tic-tac-toe	& 9 & 3 & 5	& & PSPACE-complete \cite{Reisch1981HexIP} \\
 	Connect Four & 42 & 13 & 21 & \cite{Allis1994SearchingFS} & in PSPACE \\
 	Checkers & 32 & 20 or 18 & 40 & \cite{Allis1994SearchingFS} & EXPTIME-complete \cite{Robson1984NBN} \\
@@ -399,11 +399,7 @@ The game of Go has long been viewed as the most challenging of classic games for
 	Shogi & 81 & 71 & 226 & \cite{IIDA2002121} & EXPTIME-complete \cite{IIDA2002121}\\
 	Go (19x19) & 361 & 170 & 360 & \cite{Allis1994SearchingFS} & EXPTIME-complete \cite{inproceedings} \\
 	\hline
-	
-	
-	\caption{Complexity of the most famous board game.}
 	\label{tab:game-complexity}
-	
 	
 \end{longtable}
 
@@ -618,7 +614,7 @@ In order to understand the performance of AlphaGo Zero, it is interesting to ana
 
 Another interesting result is the difference in prediction accuracy on human professional moves between the neural network $f_{\theta_i}$ at each iteration of self-play $i$, and the neural network trained by supervised learning. The accuracy measures the percentage of positions in which the neural network assigns the highest probability of action to that taken by a professional human player, shown in \autoref{fig:training-acc}.
 
-In addition to the accuracy in prediction human moves, it is possible to consider the MSE in predicting the outcome of games. The MSE is between the actual outcome $z \in {-1, 1}$ and the neural network value $v$, scaled to the range of $0$-$1$, shown in \autopageref{fig:training-mse}.
+In addition to the accuracy in prediction human moves, it is possible to consider the MSE in predicting the outcome of games. The MSE is between the actual outcome $z \in {-1, 1}$ and the neural network value $v$, scaled to the range of $0$-$1$, shown in \autoref{fig:training-mse}.
 
 The astonishing fact is that, even if AlphaGo zero performs worse in predicting master Go player moves, it is better in predict the actual outcome of a game (lower MSE). This is due to nature of reinforcement learning. Since in the RL approach we are not in charge of giving any kind of human expertise to the algorithm, there is no human knowledge ceiling to the performances.
 
@@ -738,7 +734,7 @@ The "stair pattern" of the loss, is due to the evaluation process. Indeed, when 
 \end{figure}
 
 
-\section{Conclusion}
+\section{Conclusions}
 In this work, reinforcement learning is applied in the domain of board games, showing how, in a very challenging domain (such as the game of Go), this approach achieves superhuman performances. The most astonishing fact is that this level has been achieved without human knowledge (except for what concerns the rules of the game). The agent learned the best strategies by itself. This RL approach does not use exhaustive search techniques, it rather let the agent learn by trial and error.
 
 Reinforcement learning is a very promising field. In this work, board games are used as a proxy to better understand and explore this approach. However, besides board games, the concept behind reinforcement learning is deeper than simply playing Go or Connect4. As discussed in the work "Reward is enough"\cite{SILVER2021103535} by David Silver et al. they hypothesise that the maximization of total reward may be enough to understand intelligence and its associated abilities. They conjecture that intelligence could emerge in practice from sufficiently powerful reinforcement learning agents that learn to maximize future reward.
