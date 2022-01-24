@@ -12,6 +12,7 @@
 \usepackage{makecell}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
+
 \usepackage{etoolbox}
 \AtBeginEnvironment{definition}{\small}
 
@@ -27,6 +28,7 @@ sorting=ynt
 ]{biblatex}
 \addbibresource{references.bib}
 
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 
 
 \graphicspath{ {./images/} }
@@ -489,6 +491,8 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 
 		\tiny
 		\centering
+
+		\caption{Complexity of the most famous board game.}
 		
 		\begin{tabular}{lccccc}
 
@@ -506,7 +510,6 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		\textbf{Go (19x19)} & 361 & 360 & EXPTIME-complete \cite{inproceedings} \\
 		\hline
 		\end{tabular}
-		\caption{Complexity of the most famous board game.}
 		\label{tab:game-complexity}
 		
 	\end{table}
@@ -737,6 +740,12 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 \begin{frame}
 	\frametitle{Connect4 Zero}
 	\Huge{\centerline{Thank you for your attention!}}
+\end{frame}
+
+\section{}
+\begin{frame}[allowframebreaks]
+	\frametitle{Refenreces}
+	\printbibliography
 \end{frame}
 
 %------------------------------------------------
