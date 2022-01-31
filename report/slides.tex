@@ -18,7 +18,6 @@
 
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
-
 \usepackage[
 backend=biber,
 style=numeric,
@@ -151,15 +150,8 @@ University of Milano-Bicocca\\
 What makes reinforcement learning different from other machine learning paradigms?
 \begin{itemize}
 \item There is no supervisor, only a reward signal
-\begin{itemize}
-	\item Interactions between agent and environment
-\end{itemize}
-\item Feedback is delayed
 \item Time really matters (sequential, non i.i.d data)
 \item Agent's actions affect the subsequent data it receives
-\begin{itemize}
-	\item Greedy good actions could be penalizing in the future
-\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -320,9 +312,10 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\frametitle{RL optimization problem}
 
 		\begin{itemize}
-			\item The goal in RL is to \textbf{maximize the expected return} when an agent acts according to a policy
+			\item The goal in RL is to select a policy which \textbf{maximizes the expected return} when an agent acts according to it
+
 			\item The policy influences the probability distribution over trajectories
-		\item The probability of a $T$-step trajectory is:
+			\item The probability of a $T$-step trajectory is:
 
 			\begin{equation}
 				P(\tau|\pi) = \rho_0 (s_0) \prod_{t=0}^{T-1} P(s_{t+1} | s_t, a_t) \pi(a_t | s_t)
@@ -511,7 +504,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		\tiny
 		\centering
 
-		\caption{Complexity of the most famous board game.}
+		\caption{Complexity of the most famous board games.}
 		
 		\begin{tabular}{lccccc}
 
@@ -552,12 +545,10 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		\item AlphaGo Zero achieved superhuman performance in Go.
 	\end{itemize}
 
-	A neural network is used for value-function approximation:
+	A deep neural network is used for value-function approximation:
 	\begin{itemize}
-		\item AlphaGo Zero uses a deep neural network $f_\theta$ with parameters $\theta$
-		\item The neural network takes as input the raw board representation $s$
-		\item The first layer of the neural network is a convolutional layer, followed by 40 convolutional blocks with skip-connections
-		\item The neural network has two outputs (multitask learning):
+		\item Takes as input the raw board representation $s$
+		\item Has two outputs (multitask learning):
 		\begin{itemize}		
 			\item Vector $p$: the vector of move probabilities $p$ represents the probability of selecting each move, $p_a = P(a | s)$
 			\item Scalar $v$: the value $v$ is a scalar evaluation, estimating the probability of the current player winning from position $s$
@@ -574,11 +565,13 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\begin{itemize}
 		\item The neural network in AlphaGo Zero is trained from games of self-play
 		\item In each position $s$, a MCTS search is executed, guided by the neural network $f_\theta$
-		\item The MCTS search outputs probabilities $\pi$ of playing each move
-		\item The MCTS output probabilities select much stronger moves than the raw move probabilities $p$ of the neural network $f_\theta(s)$
+		
+		\item The MCTS select much stronger moves than the raw move probabilities $p$ of the neural network $f_\theta(s)$
+
 		\begin{itemize}
 			\item MCTS can then be viewed as a policy improvement operator
 		\end{itemize}
+		
 		\item During the self-play the MCTS-based policy is used to select each move, and the game winner $z$ is used as a sample of the value $v$ (the winning player)
 		\item Parameters are updated to make the move probabilities and value $f_\theta(s) = (p, v) $ match the search probabilities and self play winner $(\pi, z)$.
 	\end{itemize}
@@ -590,22 +583,28 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 		
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=6cm]{alpha_go_zero_training.png}
+		\includegraphics[width=4cm]{alpha_go_zero_training.png}
 		
 		\caption{
 			\textbf{Self-play} and \textbf{training} AlphaGo Zero.\cite{Silver_2016}
 			}
 		\label{fig:alpha-zero-self_play}
 	\end{figure}
+	
+	The parameters $\theta$ are adjusted by gradient descent on the loss function $L$:
+
+	\begin{equation}
+		f_\theta(s) = (p,v),\quad L = (z-v)^2 - \pi_t log(p) + c \norm{\theta}^2
+	\end{equation}
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Self-play in AlphaGo Zero}
+	\frametitle{MCTS in AlphaGo Zero}
 	\begin{itemize}
-		\item The MCTS uses the neural network $f_\theta$ to guide its simulations.
-		$$f_\theta(s) = (P(s, \cdot), \, V(s))$$
-		\item Each edge $(s, a)$ in the search tree stores a prior probability $P(s, a) = p_\theta(a | s)$, a visit count $N(s, a)$, and an action-value $Q(s, a)$.
+	\item The MCTS uses the neural network $f_\theta$ to guide its simulations.
+	$$f_\theta(s) = (P(s, \cdot), \, V(s))$$
+		
 	
 	\item Each simulation starts from the root state and selects moves:
 	\begin{equation}
@@ -621,66 +620,10 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\end{equation}
 
 	\item $U(s_t,a)$ acts as an exploration factor governed by $c_{puct}$
-	\item This strategy initially prefers actions with high prior probability and low visit count, but asymptotically prefers actions with high action value.
+	\begin{itemize}
+		\item This strategy initially prefers actions with high prior probability and low visit count, but asymptotically prefers actions with high action value.
 	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Self-play in AlphaGo Zero}
-	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=10cm]{alpha-zero-mcts.png}
-		\caption{\textbf{MCTS procedure} in AlphaGo Zero.\cite{Silver_2016}}
-		\label{fig:alpha-zero-mcts}
-	\end{figure}
-	
-	The parameters $\theta$ are adjusted by gradient descent on the loss function $L$:
-
-	\begin{equation}
-		f_\theta(s) = (p,v),\quad L = (z-v)^2 - \pi_t log(p) + c \norm{\theta}^2
-	\end{equation}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Training method}
-
-	The training consists in:
-	\begin{enumerate}
-		\item Self-play
-		\begin{itemize}
-			\item $N$ iteration of training phase
-			\item For each $N$ iteration, $K$ self-play games are played by the player $\alpha_\theta$ using MCTS guided by the neural network $f_\theta$.
-			\begin{itemize}
-				\item In each $K$ game the player $\alpha_\theta$ plays against itself in order to collect new training data.
-			\end{itemize}
-			\item In each $K$ game, for every move to choose, $J$ simulations of MCTS are performed in order to collect more confident outcomes of the games.
-		\end{itemize}
-		
-		\item Training the neural network:
-		\begin{itemize}
-			\item Use the old and new training data collected in the $K$ self-play games of the $I$-th iteration to fit the data in a fixed number of epochs using the new data collected in the $K$ self-play games of the $N$-th iteration, and the data from the previous iterations
-			\item Decrease of the loss of the neural network eventually leads to better search in the MCTS guided by $f_\theta$, hence leading to higher quality training examples in the next iteration, and so on.
-		\end{itemize}		
-	\end{enumerate}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Evaluation}
-
-	\begin{enumerate}
-		\item MCTS is guided by the neural network $f_\theta$, we want to be sure that the neural network $f_\theta$ is improving over the iterations
-		\item Starting with the best neural network so far $f_{\theta'}$, at the end of each iteration, the latest neural network is evaluated
-		\item Two players $\alpha_\theta$ and $\alpha_{\theta'}$ play $P$ games against each other
-		\item If $\alpha_{\theta'}$ win a number of games higher than a threshold, then the new neural network $f_{\theta'}$ is considered the best network so far.
-	\end{enumerate}
-
-	\textbf{Note}: The number of games for evaluation are performed letting each player start the game half of the times.
-
-
+	\end{itemize}
 \end{frame}
 
 
@@ -696,7 +639,7 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\begin{itemize}
 		\item AlphaGo zero performs worse in predicting master Go player moves
 		\item It is better in predicting the actual outcome of a game (lower MSE)
-		\item This is due to nature of reinforcement learning: since we are not in charge of giving any kind of human expertise to the algorithm, there is no human knowledge ceiling to the performances.
+		\item There is no a ceiling to the performances imposed by the human knowledge.
 	\end{itemize}
 
 \end{frame}
@@ -721,34 +664,17 @@ $$\tau = (s_0, a_0, r_0, s_1, a_1, r_1...)$$
 	\begin{itemize}
 		\item Use the techniques of AlphaGo Zero \cite{silver2017mastering} to achieve master level in Connect4
 		\item I considered the game of Connect4 due to the limited computational resources at my disposal
-		\item Starting from this code\footnote{\url{https://github.com/suragnair/alpha-zero-general}}, I changed it to support the game of Connect4. I also added:
+		\item Starting from this code\footnote{\url{https://github.com/suragnair/alpha-zero-general}} the support of Connect4 has been added.\footnote{\url{https://github.com/gianlucagiudice/alpha-zero-general}}  Also I added:
 		\begin{itemize}
 			\item A graphical user interface to play against the agent
-			\item A simpler neural network architecture. (In order to being able to perform the training on my machine)
-			\item Episodes of self-play are performed in parallel to drastically reduce the training time (taking inspiration form the work of David Silver "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari}).
+			\item A simpler neural network architecture
+			\item Episodes of self-play are performed in parallel to drastically reduce the training time (taking inspiration form the work of David Silver "Playing Atari with Deep Reinforcement Learning" \cite{mnih2013atari})
 
 		\end{itemize}
 
 	\end{itemize}
 
 \end{frame}
-
-
-\begin{frame}
-	\frametitle{Hyperparameters}
-	Training hyperparameters:
-
-	\begin{itemize}
-		\item Number of iterations: 200
-		\item Self-play games per each iteration: 100
-		\item Number of MCTS: 25
-		\item Number of games against previous agent: 10
-		\item Update threshold: 60\%
-		\item Number of training epochs: 10
-	\end{itemize}
-
-\end{frame}
-
 
 \begin{frame}
 	\frametitle{Connect4 Zero}

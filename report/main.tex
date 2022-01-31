@@ -144,7 +144,7 @@ R(\tau) = \sum_{t=0}^{H-1} \gamma^t r_t
 \end{equation}
 
 \subsection{RL optimization problem}
-The goal in RL is to \textbf{maximize the expected return} when an agent acts according to a policy. The policy influences the probability distribution over trajectories. The probability of a $T$-step trajectory is:
+The goal in RL is to select a policy which \textbf{maximizes the expected return} when an agent acts according to it. The policy influences the probability distribution over trajectories. The probability of a $T$-step trajectory is:
 
 \begin{equation}
 P(\tau|\pi) = \rho_0 (s_0) \prod_{t=0}^{T-1} P(s_{t+1} | s_t, a_t) \pi(a_t | s_t)
