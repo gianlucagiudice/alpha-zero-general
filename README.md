@@ -1,5 +1,9 @@
 # Connect4 zero
-**Gianluca Giudice - 830694**
+
+
+Univeristy Project: [In-depth study on Reinforcement Learning (RL)](https://github.com/gianlucagiudice/alpha-zero-general/blob/master/In%20Depth%20Study%20-%20Reinforcement%20Learning.pdf) by **Gianluca Giudice - 830694**
+
+
 
 ### Version
 - `python3.8`
